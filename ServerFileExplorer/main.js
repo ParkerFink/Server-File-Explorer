@@ -3,6 +3,7 @@ const app = express()
 const fs = require('fs')
 
 app.use(express.urlencoded({extended: true}))
+app.use(express.static('Files'))
 app.set('view engine', 'ejs')
 
 const port = 6969

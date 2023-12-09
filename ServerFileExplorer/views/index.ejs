@@ -7,13 +7,21 @@
 </head>
 <body>
     
-    <% for(file of Files) { %>
+    <center>
+       
 
-
-        <a download href= <%= file %>  > <%= file %> </a>
+        <% for(file of Files) { %>
         
+            <a href= "<%= file %>" download>
+                <%= file %> <br>
+            </a>
+    
+        <% } %>
+      
 
-    <% } %>
+    </center>
+
+   
 
 </body>
 </html>
