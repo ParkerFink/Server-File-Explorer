@@ -1,1 +1,1 @@
-npm i && node main.js
+node main.js
