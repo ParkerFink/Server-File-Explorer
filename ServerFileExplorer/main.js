@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const AutoGitUpdate = require('auto-git-update')
+
 
 
 
@@ -13,7 +13,8 @@ app.set('view engine', 'ejs')
 
 
 
-
+//reads version file
+const version = fs.readFileSync('version.txt')
 const upload = require('./upload');
 
 //reads config.json
@@ -22,24 +23,6 @@ const setupConfig = {
     ip: parsedFile.ip,
     port: parsedFile.port
 }
-
-
-//reads version file
-const version = fs.readFileSync('version.txt')
-
-//auto update checker
-const config = {
-    repository : 'https://github.com/ParkerFink/Server-File-Explorer',
-    fromReleases: true,
-    tempLocation: 'C:/Users/Parker Fink/Desktop/tmp/',
-    executeOnComplete: __dirname + '/START.bat',
-    exitOnComplete: true
-}
-
-const updater = new AutoGitUpdate(config)
-updater.autoUpdate
-
-
 
 
 
@@ -57,6 +40,7 @@ app.get('/', function(req, res){
 app.post('/', upload.single('submitedFile'), function(req,res){
     res.redirect('/')
 })
+
 
 
 
