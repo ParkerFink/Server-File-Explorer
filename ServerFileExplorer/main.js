@@ -28,7 +28,7 @@ updater.autoUpdate
 
 
 
-
+//main directory
 app.get('/', function(req, res){
     const Files = fs.readdirSync('./Files')
     res.render('index.ejs', {
@@ -42,7 +42,7 @@ app.post('/', upload.single('submitedFile'), function(req,res){
 })
 
 
-
+//listen server
 app.listen(port, ip, function(){
     console.log('Server Running')
     
