@@ -1,17 +1,16 @@
 const fs = require('fs');
-
 const multer = require('multer')
+const uploadDirectory = './Files';
 
-const uploadDirectory = './uploads';
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
        
-            cb(null, 'Files/');
+            cb(null, uploadDirectory);
     },
     filename: (req, file, cb) => {
-      cb(null, Date.now() + '-' + file.originalname);
+      cb(null, file.originalname);
     }
   });
 

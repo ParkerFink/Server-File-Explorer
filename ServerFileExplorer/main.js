@@ -8,7 +8,7 @@ const AutoGitUpdate = require('auto-git-update')
 
 //setup
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public/Files'))
+app.use(express.static('./Files'))
 app.set('view engine', 'ejs')
 
 
@@ -17,7 +17,7 @@ const port = 6969
 const ip = '127.0.0.1'
 const upload = require('./upload');
 
-
+//reads config.json
 let parsedFile = JSON.parse(fs.readFileSync('config.json'))
 const setupConfig = {
     ip: parsedFile.ip,
@@ -25,7 +25,8 @@ const setupConfig = {
 }
 
 
-
+//reads version file
+const version = fs.readFileSync('version.txt')
 
 //auto update checker
 const config = {
@@ -46,9 +47,10 @@ updater.autoUpdate
 
 //main directory
 app.get('/', function(req, res){
-    const Files = fs.readdirSync('./Files')
+    let File = fs.readdirSync('./Files')
     res.render('index.ejs', {
-        Files: Files
+        Files: File,
+        version: version
     })
    
 })
@@ -59,15 +61,11 @@ app.post('/', upload.single('submitedFile'), function(req,res){
 
 
 
-
-
-
-
-
 //listen server
 app.listen(port, ip, function(){
     console.log("Server IP: " + setupConfig.ip)
     console.log("Server Port: " + setupConfig.port)
+    console.log("Server Version:", JSON.parse(version))
 
     
 })
