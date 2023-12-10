@@ -17,6 +17,7 @@ const upload = require('./upload');
 const config = {
     repository : 'https://github.com/ParkerFink/Server-File-Explorer',
     fromReleases: true,
+    tempLocation: 'C:/Users/Parker Fink/Desktop/tmp/',
     executeOnComplete: __dirname + '/START.bat',
     exitOnComplete: true
 }
