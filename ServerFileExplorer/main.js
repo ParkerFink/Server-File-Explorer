@@ -1,6 +1,10 @@
 const express = require('express')
-const app = express()
+const formidable = require('formidable')
 const fs = require('fs')
+
+const app = express()
+
+saveDir = './Files'
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('Files'))
@@ -17,6 +21,19 @@ app.get('/', function(req, res){
         Files: Files
     })
    
+})
+
+app.post('/', function(req,res){
+
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.filetoupload.filepath;
+      var newpath = 'C:/Users/Parker Fink/' + files.filetoupload.originalFilename;
+      fs.rename(oldpath, newpath, function (err) {
+        if (err) throw err;
+       
+      });
+    })
 })
 
 
