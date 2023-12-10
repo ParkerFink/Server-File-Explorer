@@ -13,8 +13,7 @@ app.set('view engine', 'ejs')
 
 
 
-const port = 6969
-const ip = '127.0.0.1'
+
 const upload = require('./upload');
 
 //reads config.json
@@ -62,7 +61,7 @@ app.post('/', upload.single('submitedFile'), function(req,res){
 
 
 //listen server
-app.listen(port, ip, function(){
+app.listen(setupConfig.port, setupConfig.ip, function(){
     console.log("Server IP: " + setupConfig.ip)
     console.log("Server Port: " + setupConfig.port)
     console.log("Server Version:", JSON.parse(version))
