@@ -4,14 +4,28 @@ const app = express()
 const fs = require('fs')
 const AutoGitUpdate = require('auto-git-update')
 
+
+
 //setup
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public/Files'))
 app.set('view engine', 'ejs')
 
+
+
 const port = 6969
 const ip = '127.0.0.1'
 const upload = require('./upload');
+
+
+let parsedFile = JSON.parse(fs.readFileSync('config.json'))
+const setupConfig = {
+    ip: parsedFile.ip,
+    port: parsedFile.port
+}
+
+
+
 
 //auto update checker
 const config = {
@@ -22,9 +36,11 @@ const config = {
     exitOnComplete: true
 }
 
-
 const updater = new AutoGitUpdate(config)
 updater.autoUpdate
+
+
+
 
 
 
@@ -42,8 +58,16 @@ app.post('/', upload.single('submitedFile'), function(req,res){
 })
 
 
+
+
+
+
+
+
 //listen server
 app.listen(port, ip, function(){
-    console.log('Server Running')
+    console.log("Server IP: " + setupConfig.ip)
+    console.log("Server Port: " + setupConfig.port)
+
     
 })
