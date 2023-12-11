@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Home </title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     
     <center>
        
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="submitedFile">
+       
+        <form action="/" method="post" >
+            
+            <input type="file" name="submitedFile" class="submissionBox" title="">
             <br>
-            <input type="submit">
+            <input type="submit" value="Submit">
+
         </form>
+       
 
 
-        <% for(file of Files) { %>
+
+
+        <br>
+        <div class="mainFiles">
+            <% for(file of Files) { %>
         
-            <a href= "<%= file %>" download>
-                <p><%= file %></p> 
-            </a>
-    
-        <% } %>
-
+                <a href= "<%= file %>" download>
+                    <p><%= file %></p> 
+                </a>
+        
+            <% } %>    
+        </div>
+       
         
       
 
