@@ -31,7 +31,7 @@ const setupConfig = {
 
 //main directory
 app.get('/', function(req, res){
-    let File = fs.readdirSync('./Files')
+    var File = fs.readdirSync('./Files')
     console.log(File)
     res.render('index.ejs', {
         Files: File,

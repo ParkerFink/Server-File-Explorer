@@ -25,15 +25,15 @@
 
         <div class="mainFiles">
             <% for(file of Files) { %>
-
+                
                 <p><%= file %></p> 
 
                 <a href= "<%= file %>" download>
                     <button>Download</button>
-
                 </a>
-                <button >Delete - Does not work</button>
 
+                <button onclick= "removeButton(file)">Delete - Does not work</button>
+ 
             <% } %>    
         </div>
        
@@ -45,4 +45,15 @@
    <p><%= version %></p>
 
 </body>
+<script type="text/javascript">
+
+    let file = '<%= file %>'
+    let Files = '<%= Files %>'
+
+    function removeButton(filename) {
+        console.log(Files)
+        console.log(filename)
+    }
+
+</script>
 </html>
