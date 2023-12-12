@@ -4,33 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Home </title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href= "styles.css" />
 </head>
 <body>
     
     <center>
        
        
-        <form action="/" method="post" >
+        <form action="/" method="post" enctype="multipart/form-data">
             
-            <input type="file" name="submitedFile" class="submissionBox" title="">
+            <input type="file" name="submitedFile" class="submissionBox">
             <br>
             <input type="submit" value="Submit">
 
         </form>
        
 
-
-
-
         <br>
+
+
         <div class="mainFiles">
             <% for(file of Files) { %>
-        
+
+                <p><%= file %></p> 
+
                 <a href= "<%= file %>" download>
-                    <p><%= file %></p> 
+                    <button>Download</button>
+
                 </a>
-        
+                <button >Delete - Does not work</button>
+
             <% } %>    
         </div>
        
