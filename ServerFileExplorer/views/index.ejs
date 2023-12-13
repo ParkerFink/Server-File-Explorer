@@ -15,7 +15,7 @@
             
             <input type="file" name="submitedFile" class="submissionBox">
             <br>
-            <input type="submit" value="Submit">
+            <input class="submit" type="submit" value="Submit">
 
         </form>
        
@@ -27,12 +27,10 @@
             <% for(file of Files) { %>
                 
                 <p><%= file %></p> 
-
                 <a href= "<%= file %>" download>
-                    <button>Download</button>
+                    <button class="buttons">Download</button>
                 </a>
-
-                <button onclick= "removeButton(file)">Delete - Does not work</button>
+                <button class="buttons">Delete - Does not work</button>
  
             <% } %>    
         </div>
@@ -42,18 +40,7 @@
 
     </center>
 
-   <p><%= version %></p>
+   <h4><%= version %></h4>
 
 </body>
-<script type="text/javascript">
-
-    let file = '<%= file %>'
-    let Files = '<%= Files %>'
-
-    function removeButton(filename) {
-        console.log(Files)
-        console.log(filename)
-    }
-
-</script>
 </html>

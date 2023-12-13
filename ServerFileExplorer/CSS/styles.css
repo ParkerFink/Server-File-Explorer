@@ -1,8 +1,45 @@
 .mainFiles {
-    width: 350px;
+    width: 450px;
     border-style: solid;
     border-color: black;
     border-radius: 15px;
+    padding: 20px;
+}
+
+body {
+    background-color: #2596be;
 }
 
 
+p {
+    color: white;
+    border-style: solid;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.submissionBox {
+    border-style: solid;
+    border-color: black;
+    border-radius: 15px;
+    height: 150px;
+    
+    padding: 10px;
+}
+
+.buttons {
+    width: 150px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: lightgray;
+    border: none;
+
+}
+
+.submit {
+    width: 150px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: lightgray;
+    border: none;
+}
