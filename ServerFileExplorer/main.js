@@ -44,7 +44,9 @@ app.post('/', upload.single('submitedFile'), function(req,res){
     res.redirect('/')
 })
 
-
+app.post('/Folder',upload.array('submitedFile'), function(req,res){
+    res.redirect('/')
+})
 
 
 //listen server
