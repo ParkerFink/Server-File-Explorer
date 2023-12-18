@@ -8,3 +8,10 @@ This little project is just a nodejs file browser server "i think thats the corr
 
 # Startup
 - Simnply run START.bat, this lone file runs the whole server.
+
+
+# Notes
+- Currently, to upload folders you must convert them to a zip file: i do plan on changing that soon.
+- the delete button does not currently work but it will be soon updated.
+- If you have reccomendations on ideas or on looks, please feel free to reach out. 
+- please understand I am the only programmer on this project. I am not the most intelligent programmer so updates may take time.
