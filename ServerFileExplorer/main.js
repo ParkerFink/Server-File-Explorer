@@ -20,6 +20,7 @@ const upload = require('./upload');
 //reads version file
 const version = fs.readFileSync('version.txt')
 
+
 //reads config.json
 let parsedFile = JSON.parse(fs.readFileSync('config.json'))
 const setupConfig = {
