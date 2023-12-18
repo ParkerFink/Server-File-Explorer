@@ -26,14 +26,16 @@
         <div class="mainFiles">
             <% for(file of Files) { %>
                 
-                <p><%= file %></p> 
+                <p id="fileName"><%= file %></p> 
                 <a href= "<%= file %>" download>
-                    <button class="buttons">Download</button>
+                    <button id="downloadButton" class="buttons">Download</button>
                 </a>
-                <button class="buttons">Delete - Does not work</button>
+                <button id="deleteButton" onclick="deleteItem()" class="buttons">Delete - Does not work</button>
  
             <% } %>    
         </div>
+
+        
 
    
       
@@ -43,4 +45,18 @@
    <h4><%= version %></h4>
 
 </body>
+<script>
+
+    let fileName = document.getElementById("fileName")
+    let downloadButton = document.getElementById("downloadButton")
+    let deleteButton = document.getElementById("deleteButton")
+
+    function deleteItem() {
+        fileName.remove()
+        downloadButton.remove()
+        deleteButton.remove()
+        
+    }
+
+</script>
 </html>
