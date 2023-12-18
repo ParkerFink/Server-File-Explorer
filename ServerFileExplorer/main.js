@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const JSZip = require('jszip')
+
 
 
 
@@ -13,7 +13,7 @@ app.use(express.static('./CSS'))
 app.set('view engine', 'ejs')
 
 const upload = require('./upload');
-const JSZip = require('jszip')
+
 
 
 
