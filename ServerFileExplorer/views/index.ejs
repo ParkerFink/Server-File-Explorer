@@ -30,15 +30,10 @@
                 <a href= "<%= file %>" download>
                     <button class="buttons">Download</button>
                 </a>
-                <button onclick="removeItem('<%= file %>')" class="buttons">Delete - Does not work</button>
+                
  
             <% } %>    
         </div>
-
-        
-
-   
-      
 
     </center>
 
@@ -46,12 +41,12 @@
 
 </body>
 
-<script type="text/javascript" src="remove.js"></script>
+
 
 <script type="text/javascript">
+    
+    
 
-    
-    
     var Files = "<%= Files %>"
     var file = "<%= file %>"
     var array = Files.split(',')
@@ -59,12 +54,9 @@
 
     function removeItem(item) {
         var index = array.indexOf(item)
-        //console.log(index)
-        
         array.splice(index, 1)
         console.log(array)
 
-        
 
     }
 </script>
