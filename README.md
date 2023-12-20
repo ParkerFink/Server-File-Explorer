@@ -7,7 +7,7 @@ This little project is just a nodejs file browser server "i think thats the corr
 - In config.json, change the ip and port to whatever you need. It can run on the current system as is but to access it from other devices; the IP must be changed.
 
 # Startup
-- Simnply run START.bat, this lone file runs the whole server.
+- Simply run START.bat, this lone file runs the whole server.
 
 
 # Notes
