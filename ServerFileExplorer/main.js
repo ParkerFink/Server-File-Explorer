@@ -8,13 +8,18 @@ const fs = require('fs')
 
 //setup
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('./Files'))
-app.use(express.static('./CSS'))
+app.use(express.static(__dirname + '/Files/'))
+app.use(express.static(__dirname + '/CSS/'))
 app.set('view engine', 'ejs')
-
 const upload = require('./upload');
 
 
+
+
+//functions
+function createDir(dirname){
+    fs.mkdirSync('Files/' + dirname)
+}
 
 
 
