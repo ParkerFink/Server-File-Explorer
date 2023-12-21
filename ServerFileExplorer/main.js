@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
+const upload = require('./upload');
 
 
 
@@ -10,16 +11,10 @@ const fs = require('fs')
 app.use(express.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/Files/'))
 app.use(express.static(__dirname + '/CSS/'))
+app.use(express.static(__dirname + "/ejsFuncs/"))
+
 app.set('view engine', 'ejs')
-const upload = require('./upload');
 
-
-
-
-//functions
-function createDir(dirname){
-    fs.mkdirSync('Files/' + dirname)
-}
 
 
 
