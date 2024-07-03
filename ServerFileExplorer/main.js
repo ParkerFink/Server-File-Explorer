@@ -2,12 +2,16 @@
 const express = require("express")
 const app = express()
 const fs = require('fs')
+const multer = require('multer')
 
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static('Storage'))
 const storageFolder = 'Storage/'
+
+
+
 
 //endpoints
 app.get('/', function(req,res){
