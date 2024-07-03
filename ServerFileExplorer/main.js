@@ -13,6 +13,18 @@ const storageFolder = 'Storage/'
 
 
 
+const storage = multer.diskStorage({
+destination: (req,file, cb) => {
+    cb(null, storageFolder)
+},
+filename: (req,file, cb) => {
+    cb(null, file.originalname)
+},
+})
+const uploadStorage = multer({storage: storage})
+
+
+
 //endpoints
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
@@ -21,6 +33,12 @@ app.get('/', function(req,res){
         files: filenames
     })
 
+   
+
+})
+
+app.post('/', uploadStorage.single("filename"), function(req,res){
+    res.redirect('/')
 })
 
 //listen server
