@@ -10,10 +10,10 @@ app.set('view engine', 'ejs')
 app.use(express.static('Storage'))
 const storageFolder = 'Storage/'
 
-function deleteFile(deleteFile) {
-    fs.rmdirSync("storage/" + 'deleteFile')
-}
 
+function deleteFile(deleteFile) {
+    fs.rmdirSync(storageFolder + '/' + deleteFile)
+}
 
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
