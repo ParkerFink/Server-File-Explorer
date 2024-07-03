@@ -12,6 +12,7 @@
 <% for (file of files) { %>
 
     <p><a href="<%= file %>" download="<%= file %>" ><%= file %></a></p>
+    <button onclick="deleteFile(file)">Delete</button>
 
 <% } %>
 
@@ -27,4 +28,5 @@
 
 
 </body>
+<script type="module" src="main.js"></script>
 </html>
