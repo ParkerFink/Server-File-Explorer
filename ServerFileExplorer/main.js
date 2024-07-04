@@ -11,9 +11,7 @@ app.use(express.static('Storage'))
 const storageFolder = 'Storage/'
 
 
-function deleteFile(deleteFile) {
-    fs.rmdirSync(storageFolder + '/' + deleteFile)
-}
+
 
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {

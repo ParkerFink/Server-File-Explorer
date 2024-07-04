@@ -12,7 +12,7 @@
 <% for (file of files) { %>
 
     <p><a href="<%= file %>" download="<%= file %>" ><%= file %></a></p>
-    <button onclick="deleteFile('<%= file %>')">Delete</button>
+    <button onclick="">Delete N/A</button>
 
 <% } %>
 
@@ -28,13 +28,4 @@
 
 
 </body>
-<script type="text/javascript">
-
-    const fs = require('fs')
-
-    function deleteFile(deleteFile) {
-        fs.rmdirSync(deleteFile)
-    }
-
-</script>
 </html>
