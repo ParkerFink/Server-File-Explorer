@@ -3,14 +3,23 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
+const { parse } = require("path")
+const { config } = require("process")
 
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
 app.use(express.static('Storage'))
+
+//config file
+let readFile = fs.readFileSync('config.json')
+let configFile = JSON.parse(readFile)
+
+
+
+
+//const cwd = process.cwd()
 const storageFolder = 'Storage/'
-
-
 
 
 const storage = multer.diskStorage({
@@ -30,7 +39,8 @@ app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
     console.log(filenames)
     res.render('index.ejs', {
-        files: filenames
+        files: filenames,
+        tabName: configFile.tabName
     })
 
    
@@ -43,5 +53,5 @@ app.post('/', uploadStorage.single("filename"), function(req,res){
 
 //listen server
 app.listen(8080, '127.0.0.1', function(){
-    console.log("Server Running")
+    console.log(`Server: ${configFile.ip}:${configFile.port}`)
 })
