@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
+const { config } = require("process")
 
 
 //setup
@@ -20,8 +21,6 @@ function deleteFile(path){
     console.log(path)
 
 }
-
-//const cwd = process.cwd()
 const storageFolder = 'Storage/'
 
 
@@ -53,6 +52,6 @@ app.post('/', uploadStorage.single("filename"), function(req,res){
 })
 
 //listen server
-app.listen(8080, '127.0.0.1', function(){
+app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
 })
