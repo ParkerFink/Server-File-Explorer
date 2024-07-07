@@ -43,13 +43,24 @@ app.get('/', function(req,res){
     res.render('index.ejs', {
         files: filenames,
         tabName: configFile.tabName,
-        mainPath: configFile.mainPath
+        
     })
 })
 
 app.post('/', uploadStorage.single("filename"), function(req,res){
     res.redirect('/')
 })
+
+
+
+app.post('/delete', function(req,res){
+    deleteFile = req.body.file
+    fs.unlinkSync(storageFolder + deleteFile)
+    console.log("Deleted: " + deleteFile)
+    res.redirect('/')
+})
+
+
 
 //listen server
 app.listen(configFile.port, configFile.port, function(){
