@@ -3,8 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const { parse } = require("path")
-const { config } = require("process")
+
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -16,7 +15,11 @@ let readFile = fs.readFileSync('config.json')
 let configFile = JSON.parse(readFile)
 
 
+function deleteFile(path){
+    //fs.rmdirSync(path)
+    console.log(path)
 
+}
 
 //const cwd = process.cwd()
 const storageFolder = 'Storage/'
@@ -40,11 +43,9 @@ app.get('/', function(req,res){
     console.log(filenames)
     res.render('index.ejs', {
         files: filenames,
-        tabName: configFile.tabName
+        tabName: configFile.tabName,
+        mainPath: configFile.mainPath
     })
-
-   
-
 })
 
 app.post('/', uploadStorage.single("filename"), function(req,res){

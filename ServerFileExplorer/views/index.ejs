@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="" src= '<% mainPath% >' ></script>
     <title> <%= tabName %> </title>
 </head>
 <body>
@@ -12,7 +13,7 @@
 <% for (file of files) { %>
 
     <p><a href="<%= file %>" download="<%= file %>" ><%= file %></a></p>
-    <button onclick="">Delete N/A</button>
+    <button onclick="deleteFile('hey there')">Delete N/A</button>
 
 <% } %>
 
@@ -28,10 +29,4 @@
 
 
 </body>
-<script >
-
-    //nothings here currently
-    
-
-</script>
 </html>
