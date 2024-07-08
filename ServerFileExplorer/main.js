@@ -21,9 +21,9 @@ function deleteFile(path){
     console.log(path)
 
 }
+
+//multer storage folder setup
 const storageFolder = 'Storage/'
-
-
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, storageFolder)
@@ -52,12 +52,18 @@ app.post('/', uploadStorage.single("filename"), function(req,res){
 })
 
 
-
+//delete endpoint
 app.post('/delete', function(req,res){
     deleteFile = req.body.file
-    fs.unlinkSync(storageFolder + deleteFile)
-    console.log("Deleted: " + deleteFile)
-    res.redirect('/')
+
+        if (deleteFile == undefined) {
+            res.redirect('/')
+        } else {
+            fs.unlinkSync(storageFolder + deleteFile)
+            console.log("Deleted: " + deleteFile)
+            res.redirect('/')
+        }
+   
 })
 
 
