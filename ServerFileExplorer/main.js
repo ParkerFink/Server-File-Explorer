@@ -16,9 +16,9 @@ let readFile = fs.readFileSync('config.json')
 let configFile = JSON.parse(readFile)
 
 
-function deleteFile(path){
-    //fs.rmdirSync(path)
-    console.log(path)
+function getStorageFolderSize(){
+    let x = fs.statSync('Storage/')
+    console.log(x.size)
 
 }
 
@@ -38,6 +38,7 @@ const uploadStorage = multer({storage: storage})
 
 //endpoints
 app.get('/', function(req,res){
+    getStorageFolderSize()
     let filenames = fs.readdirSync(storageFolder)
     console.log(filenames)
     res.render('index.ejs', {
