@@ -4,7 +4,7 @@ const app = express()
 const fs = require('fs')
 const multer = require('multer')
 const { config } = require("process")
-
+const admz = require('adm-zip')
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -16,11 +16,6 @@ let readFile = fs.readFileSync('config.json')
 let configFile = JSON.parse(readFile)
 
 
-function getStorageFolderSize(){
-    let x = fs.statSync('Storage/')
-    console.log(x.size)
-
-}
 
 //multer storage folder setup
 const storageFolder = 'Storage/'
@@ -36,9 +31,11 @@ const uploadStorage = multer({storage: storage})
 
 
 
+
 //endpoints
+
+//home endpoint
 app.get('/', function(req,res){
-    getStorageFolderSize()
     let filenames = fs.readdirSync(storageFolder)
     console.log(filenames)
     res.render('index.ejs', {
@@ -48,6 +45,8 @@ app.get('/', function(req,res){
     })
 })
 
+
+//home post endpoint
 app.post('/', uploadStorage.single("filename"), function(req,res){
     res.redirect('/')
 })
