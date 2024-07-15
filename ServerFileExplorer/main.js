@@ -59,11 +59,22 @@ app.post('/delete', function(req,res){
         if (deleteFile == undefined) {
             res.redirect('/')
         } else {
-            fs.unlinkSync(storageFolder + deleteFile)
-            console.log("Deleted: " + deleteFile)
+
+
+            if (deleteFile.length >= 1) {
+                for (item of deleteFile) {
+                    console.log(deleteFile.length)
+                    //fs.unlinkSync(storageFolder + item)
+                }
+            }
+            // } else {
+            //     fs.unlinkSync(storageFolder + deleteFile)
+            //     console.log("Deleted: " + deleteFile)
+            // }
+            
             res.redirect('/')
+
         }
-   
 })
 
 
