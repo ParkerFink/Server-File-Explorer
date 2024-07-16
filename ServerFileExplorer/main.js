@@ -59,23 +59,20 @@ app.post('/delete', function(req,res){
         if (deleteFile == undefined) {
             res.redirect('/')
         } else {
-
-
-            if (deleteFile.length >= 1) {
-                for (item of deleteFile) {
-                    console.log(deleteFile.length)
-                    //fs.unlinkSync(storageFolder + item)
+                if (Array.isArray(deleteFile) == true){
+                    for (item of deleteFile) {
+                        //console.log(deleteFile.length)
+                        fs.unlinkSync(storageFolder + item)
+                        console.log("Deleted: " + item)
+                    }
+                } else {
+                    fs.unlinkSync(storageFolder + deleteFile)
+                    console.log("Deleted: " + deleteFile)
                 }
-            }
-            // } else {
-            //     fs.unlinkSync(storageFolder + deleteFile)
-            //     console.log("Deleted: " + deleteFile)
-            // }
-            
+                
             res.redirect('/')
-
         }
-})
+    })
 
 
 
