@@ -13,7 +13,7 @@
     
     </form>
     
-<h3>Size of folder/Space Remaining "just here temporarily"</h3>
+
 
 
 
@@ -22,7 +22,8 @@
     <% for (file of files) { %>
 
         <input for="fileDelete" type="checkbox" name= "file" value='<%= file %>'>
-        <a href="<%= file %>" id="fileDelete" download="<%= file %>" ><%= file %></a> <br>
+        <a href="<%= file %>" id="fileDelete" download="<%= file %>" ><%= file %></a> 
+        <br>
 
     <% } %>    
     <input type="submit" value="Delete Selected">
