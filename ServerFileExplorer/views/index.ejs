@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
     <title> <%= tabName %> </title>
 </head>
 <body>
     <form action="/" method="post" enctype="multipart/form-data">
 
-        <input type="file" name="filename">
+        <input class="fileUpload" type="file" name="filename">
         <input type="submit" value="Upload File">
     
     </form>
@@ -17,17 +18,24 @@
 
 
 
-<h1>Files</h1>
-<form action="/delete" method="post">
-    <% for (file of files) { %>
+<center>
+    <form action="/delete" method="post">
+        <% for (file of files) { %>
+            
 
-        <input for="fileDelete" type="checkbox" name= "file" value='<%= file %>'>
-        <a href="<%= file %>" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-        <br>
-
-    <% } %>    
-    <input type="submit" value="Delete Selected">
-</form>
+            <div class="checkbox">
+                <input for="fileDelete"  type="checkbox" name= "file" value='<%= file %>'>
+                <a href="<%= file %>" class="downloadItems" id="fileDelete" download="<%= file %>" ><%= file %></a> 
+                <button onclick="window.open('<%= file %>')">Open In New Tab</button>
+            <br>
+            </div>
+            
+    
+        <% } %>    
+        <input type="submit" class="deleteButton" value="Delete Selected">
+    </form>
+    
+</center>
 
 
 
