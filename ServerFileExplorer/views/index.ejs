@@ -7,22 +7,25 @@
     <title> <%= tabName %> </title>
 </head>
 <body>
-    <form action="/" method="post" enctype="multipart/form-data">
 
-        <input class="fileUpload" type="file" name="filename">
-        <input type="submit" value="Upload File">
+    <div class="uploadArea">
+        <form action="/" method="post" enctype="multipart/form-data">
+
+            <input class="fileUpload" type="file" name="filename">
+            <input type="submit" value="Upload File">
+        
+        </form>
+    </div>
+ 
     
-    </form>
-    
 
 
 
-<center>
+
     <div class="filebox"></div>
     <form action="/delete" method="post">
+        <input type="submit" class="deleteButton" value="Delete Selected">
         <% for (file of files) { %>
-            
-
             <div class="checkbox">
                 
 
@@ -33,14 +36,12 @@
                     <button onclick="window.open('<%= file %>')">Open</button>
 
             <br>
-            </div>
             
-    
+            </div>
         <% } %>    
-        <input type="submit" class="deleteButton" value="Delete Selected">
     </form>
 </div> 
-</center>
+
 
 
 

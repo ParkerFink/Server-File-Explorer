@@ -1,8 +1,8 @@
 .downloadItems {
+
     font-size: 35px;
     text-decoration: none;
     
-
     width: 400px;
 
 }
@@ -14,10 +14,13 @@
     
     width: 43px;
     height: 43px;
-
-
+    
 }
 
+.uploadArea {
 
+    float: right;
+    
+}
 
 
