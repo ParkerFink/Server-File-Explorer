@@ -1,18 +1,9 @@
-.deleteButton {
-    width: 175px;
-    height: 25px;
-
-
-    border-radius: 10px;
-    color: red;
-
-}
-
 .downloadItems {
     font-size: 35px;
     text-decoration: none;
     
-    word-break:keep-all;
+
+    width: 400px;
 
 }
 
@@ -20,10 +11,13 @@
 
 
 .checkbox input {
-    padding-bottom: 15px;
+    
     width: 43px;
     height: 43px;
 
+
 }
+
+
 
 

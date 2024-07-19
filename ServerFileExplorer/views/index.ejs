@@ -17,16 +17,21 @@
 
 
 
-
 <center>
+    <div class="filebox"></div>
     <form action="/delete" method="post">
         <% for (file of files) { %>
             
 
             <div class="checkbox">
-                <input for="fileDelete"  type="checkbox" name= "file" value='<%= file %>'>
-                <a href="<%= file %>" class="downloadItems" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button onclick="window.open('<%= file %>')">Open In New Tab</button>
+                
+
+                    <input  type="checkbox" id="checkboxid" name= "file" value='<%= file %>'>
+
+                    <a href="<%= file %>" class="downloadItems"  id="fileDelete" download="<%= file %>" ><%= file %></a> 
+
+                    <button onclick="window.open('<%= file %>')">Open</button>
+
             <br>
             </div>
             
@@ -34,9 +39,8 @@
         <% } %>    
         <input type="submit" class="deleteButton" value="Delete Selected">
     </form>
-    
+</div> 
 </center>
-
 
 
 
