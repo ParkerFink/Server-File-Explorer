@@ -38,12 +38,29 @@ const uploadStorage = multer({storage: storage})
 //home endpoint
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
-    console.log(filenames)
-    res.render('index.ejs', {
-        files: filenames,
-        tabName: configFile.tabName,
-        
-    })
+    let folderSize = 0
+
+    for (file of filenames) {
+        fs.stat("Storage/" + file, function(err, stats){
+            if (err) {
+
+                throw err
+
+            } else {
+
+                console.log(stats.size)
+                folderSize = folderSize + stats.size
+                console.log("Total Size", folderSize)
+
+            }
+            console.log(filenames)
+            res.render('index.ejs', {
+            files: filenames,
+            tabName: configFile.tabName,
+            folderSize: folderSize
+            })
+        })
+    }  
 })
 
 
