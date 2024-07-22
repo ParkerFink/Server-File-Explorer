@@ -2,18 +2,30 @@ import os
 
 
 
-storageFolder = 'Storage/'
-folderSize = "./foldersize.txt"
+
+
+
+storageFolder = os.path.isdir('Storage/')
+folderSize = os.path.isfile('foldersize.txt')
+
 os.system('npm i')
 
 
-if os.path.exists(storageFolder and folderSize) == True:
-    print("Storage Directory Already Exists")
+if storageFolder == True:
+    print("Storage Folder Exists")
     pass
-
 else:
-    os.mkdir(storageFolder)
-    with open(folderSize, 'w') as outFile:
-        outFile.write(' ')
+    print('Creating Storage Folder')
+    os.mkdir("Storage/")
+
+
+if folderSize == True:
+    print("foldersize.txt Already Exists")
+    pass
+else:
+    print("Creating foldersize.txt")
+    with open('foldersize.txt', 'w') as outFile:
+        outFile.write('')
+
 
 
