@@ -54,7 +54,7 @@ app.get('/', function(req,res){
                 console.log(stats.size)
                 folderSize = folderSize + stats.size
                 console.log("Total Size", folderSize)
-                fs.writeFileSync('foldersize.txt', folderSize)
+                fs.writeFileSync('foldersize.txt', JSON.stringify(folderSize))
 
                 }
             })
