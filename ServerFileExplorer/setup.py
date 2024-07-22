@@ -25,7 +25,7 @@ if folderSize == True:
 else:
     print("Creating foldersize.txt")
     with open('foldersize.txt', 'w') as outFile:
-        outFile.write('')
+        outFile.write('0')
 
 
 
