@@ -67,7 +67,8 @@ app.get('/', function(req,res){
     res.render('index.ejs', {
     files: filenames,
     tabName: configFile.tabName,
-    folderSize: fs.readFileSync(readFolderSize)
+    folderSize: fs.readFileSync(readFolderSize),
+    version: configFile.version
 
         })
     })
@@ -106,4 +107,8 @@ app.post('/delete', function(req,res){
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
+    console.log(`Server Version ${configFile.version}`)
+    //console.log(`Server GUI ${configFile.ui_version}`)
+    console.log("Server: Running")
+
 })
