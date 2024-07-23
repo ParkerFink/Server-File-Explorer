@@ -14,6 +14,10 @@ class CLI(cmd.Cmd):
     def do_list(self, dir):
         print(os.listdir("Storage/" + dir))
 
+    def do_rmf(self, dir):
+        os.remove("Storage/" + dir)
+        print('Removed: ', dir)
+
 
     def do_exit(self, blank):
         exit()
