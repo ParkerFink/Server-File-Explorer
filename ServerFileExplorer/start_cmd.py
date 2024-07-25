@@ -60,5 +60,14 @@ class CLI(cmd.Cmd):
     def help_clear(self):
         print("Clears all text in the terminal")
 
+    def help_fe(self):
+        print("fe stands for File Explorer")
+        print("'fe' uses tags such as '-IP' or -V")
+        print("Current tags: ")
+        print("-V displays the current version of the program")
+        print("-IP displays the current IP")
+        print("-PORT displays the current PORT")
+        print("-TAB displays the current tag name")
+
 cli = CLI()
 cli.cmdloop()
