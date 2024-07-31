@@ -3,11 +3,11 @@ import os
 import json
 import datetime
 
-serverStart = datetime.datetime.now()
-print(serverStart)
-with open("Logs/" + str(serverStart) + ".txt", 'w') as outFile:
-    outFile.write('Server Start \n')
-    outFile.write(str(serverStart) + "\n")
+#serverStart = datetime.datetime.now()
+#print(serverStart)
+#with open("Logs/" + str(serverStart) + ".txt", 'w') as outFile:
+    #outFile.write('Server Start \n')
+    #outFile.write(str(serverStart) + "\n")
 
     
 class CLI(cmd.Cmd): 
