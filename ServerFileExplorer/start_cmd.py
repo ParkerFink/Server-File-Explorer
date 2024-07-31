@@ -35,23 +35,33 @@ class CLI(cmd.Cmd):
     def do_clear(self, blank):
         os.system('cls || clear')
     
-    def do_fe(self, tag):
-        configFile = open('config.json')
-        configData = json.load(configFile)
+    def do_config(self, item):
+        #data = configData[tag[0]]
 
-        if tag == '-V':
-            print(configData["version"])
+        tag = item.split()
+        print(tag)
+        config = open('config.json')
+        configData = json.load(config)
+        
+        print(len(tag))
 
-        if tag == '-IP':
-            print(configData["ip"])
 
-        if tag == '-PORT':
-            print(configData["port"])
+        if len(tag) <= 0:
+            print(configData)
+        
+        #elif len(tag) > 0:
+            #print(configData[tag[1]])
 
-        if tag == "-TAB":
-            print(configData["tabName"])
 
-        configFile.close()
+      
+
+
+
+
+
+        config.close()
+
+    
 
 #help
     def help_start(self):
@@ -69,14 +79,7 @@ class CLI(cmd.Cmd):
     def help_clear(self):
         print("Clears all text in the terminal")
 
-    def help_fe(self):
-        print("fe stands for File Explorer")
-        print("'fe' uses tags such as '-IP' or -V")
-        print("Current tags: ")
-        print("-V displays the current version of the program")
-        print("-IP displays the current IP")
-        print("-PORT displays the current PORT")
-        print("-TAB displays the current tag name")
+    
 
 cli = CLI()
 cli.cmdloop()
