@@ -32,6 +32,47 @@ const uploadStorage = multer({storage: storage})
 
 
 
+//external function
+
+//convert function
+function sizeConvert(folder_size){
+
+    folder_size_length = folder_size.toString().length
+
+
+    if (folder_size_length <= 3){
+        
+        console.log("converted size", folder_size, "Bytes")
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size + " Bytes"))
+        
+    } else if (folder_size_length <= 6){
+
+        let x = console.log("converted size", folder_size / 1000, "Kilobytes")   
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000 + " Kilobytes"))
+
+    } else if (folder_size_length <= 9) {
+
+        let x = console.log("converted size", folder_size / 1000000, "Megabytes")
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000000 + " Megabytes"))
+
+    } else if (folder_size_length <= 12) {
+        
+        let x = console.log("converted size", folder_size / 1000000000, "Gigabytes")
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size/  1000000000 + " Gigabytes"))
+
+    } else if (folder_size_length <= 15) {
+
+        let x = console.log("converted size", folder_size / 1000000000000, 'Terabyte')
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000000000000 + " Terabytes"))
+
+    } else if (folder_size_length <= 18) {
+
+        let x = console.log("converted size", folder_size / 1000000000000000, 'Petabyte')
+        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size/ 1000000000000000 + " Petabytes"))
+
+    }
+
+}
 
 
 
@@ -53,9 +94,11 @@ app.get('/', function(req,res){
 
                 console.log(stats.size)
                 folderSize = folderSize + stats.size
-                console.log("Total Size", folderSize)
-                fs.writeFileSync('foldersize.txt', JSON.stringify(folderSize))
+                
+                sizeConvert(folderSize)
 
+                console.log("Total Size", folderSize)
+                
                 }
             })
         }

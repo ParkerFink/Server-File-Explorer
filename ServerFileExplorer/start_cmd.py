@@ -1,8 +1,15 @@
 import cmd
 import os
 import json
+import datetime
 
+#serverStart = datetime.datetime.now()
+#print(serverStart)
+#with open("Logs/" + str(serverStart) + ".txt", 'w') as outFile:
+    #outFile.write('Server Start \n')
+    #outFile.write(str(serverStart) + "\n")
 
+    
 class CLI(cmd.Cmd): 
     intro = "HELLO! For help type `help` into the terminal for help. To return to the terminal when the server has stopped, hit `CTRL+C`."
     
@@ -10,10 +17,12 @@ class CLI(cmd.Cmd):
 
 #main functions
     def do_start(self, blank):
+        
         os.system('node main.js')
     
     def do_list(self, dir):
         print(os.listdir("Storage/" + dir))
+        
 
     def do_rmf(self, dir):
         os.remove("Storage/" + dir)
@@ -26,23 +35,38 @@ class CLI(cmd.Cmd):
     def do_clear(self, blank):
         os.system('cls || clear')
     
-    def do_fe(self, tag):
-        configFile = open('config.json')
-        configData = json.load(configFile)
+    def do_config(self, item):
+        
 
-        if tag == '-V':
-            print(configData["version"])
+        tag = item.split()
+        print(tag)
 
-        if tag == '-IP':
-            print(configData["ip"])
 
-        if tag == '-PORT':
-            print(configData["port"])
+        #config = open('config.json')
+        #configData = json.load(config)
+       
 
-        if tag == "-TAB":
-            print(configData["tabName"])
+        with open('config.json', 'r') as jsonFile:
+            file = json.load(jsonFile)
+            
+            file[tag[0]] = tag[1]
 
-        configFile.close()
+            with open('config.json', 'w') as jsonFile:
+                json.dump(file, jsonFile)
+
+        #print("config", tag[0], tag[1])
+
+        #newData = configData[tag[0]] = tag[1]
+
+        #json.dumps(configData)
+        
+       
+
+
+
+        
+
+    
 
 #help
     def help_start(self):
@@ -60,14 +84,7 @@ class CLI(cmd.Cmd):
     def help_clear(self):
         print("Clears all text in the terminal")
 
-    def help_fe(self):
-        print("fe stands for File Explorer")
-        print("'fe' uses tags such as '-IP' or -V")
-        print("Current tags: ")
-        print("-V displays the current version of the program")
-        print("-IP displays the current IP")
-        print("-PORT displays the current PORT")
-        print("-TAB displays the current tag name")
+    
 
 cli = CLI()
 cli.cmdloop()
