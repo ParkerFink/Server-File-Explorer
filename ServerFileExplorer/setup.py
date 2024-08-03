@@ -19,12 +19,12 @@ else:
     print('Creating Storage Folder')
     os.mkdir("Storage/")
 
-if logFolder == True:
-    print("Log Folder Exists")
-    pass
-else:
-    print("Creating Log Folder")
-    os.mkdir("Logs/")
+#if logFolder == True:
+#    print("Log Folder Exists")
+#    pass
+#else:
+#    print("Creating Log Folder")
+#    os.mkdir("Logs/")
 
 
 if folderSize == True:

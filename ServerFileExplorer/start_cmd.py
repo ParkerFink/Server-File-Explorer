@@ -36,30 +36,35 @@ class CLI(cmd.Cmd):
         os.system('cls || clear')
     
     def do_config(self, item):
-        #data = configData[tag[0]]
+        
 
         tag = item.split()
         print(tag)
-        config = open('config.json')
-        configData = json.load(config)
+
+
+        #config = open('config.json')
+        #configData = json.load(config)
+       
+
+        with open('config.json', 'r') as jsonFile:
+            file = json.load(jsonFile)
+            
+            file[tag[0]] = tag[1]
+
+            with open('config.json', 'w') as jsonFile:
+                json.dump(file, jsonFile)
+
+        #print("config", tag[0], tag[1])
+
+        #newData = configData[tag[0]] = tag[1]
+
+        #json.dumps(configData)
         
-        print(len(tag))
+       
 
 
-        if len(tag) <= 0:
-            print(configData)
+
         
-        #elif len(tag) > 0:
-            #print(configData[tag[1]])
-
-
-      
-
-
-
-
-
-        config.close()
 
     
 
