@@ -35,5 +35,7 @@ else:
     with open('foldersize.txt', 'w') as outFile:
         outFile.write('0')
 
+print("Completed!")
+input("Press Any Button To Exit: ")
 
 

@@ -41,11 +41,6 @@ class CLI(cmd.Cmd):
         tag = item.split()
         print(tag)
 
-
-        #config = open('config.json')
-        #configData = json.load(config)
-       
-
         with open('config.json', 'r') as jsonFile:
             file = json.load(jsonFile)
             
@@ -53,20 +48,6 @@ class CLI(cmd.Cmd):
 
             with open('config.json', 'w') as jsonFile:
                 json.dump(file, jsonFile)
-
-        #print("config", tag[0], tag[1])
-
-        #newData = configData[tag[0]] = tag[1]
-
-        #json.dumps(configData)
-        
-       
-
-
-
-        
-
-    
 
 #help
     def help_start(self):
@@ -83,6 +64,9 @@ class CLI(cmd.Cmd):
 
     def help_clear(self):
         print("Clears all text in the terminal")
+
+    def help_config(self):
+        print("Used to change the config.json file")
 
     
 
