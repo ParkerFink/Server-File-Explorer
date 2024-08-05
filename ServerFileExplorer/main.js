@@ -37,38 +37,47 @@ const uploadStorage = multer({storage: storage})
 //convert function
 function sizeConvert(folder_size){
 
+    // let roundNum = folder_size.toFixed(2)
+    // console.log(roundNum,) 
+
     folder_size_length = folder_size.toString().length
 
 
     if (folder_size_length <= 3){
+        
         
         console.log("converted size", folder_size, "Bytes")
         fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size + " Bytes"))
         
     } else if (folder_size_length <= 6){
 
+        let round = folder_size / 1000
         let x = console.log("converted size", folder_size / 1000, "Kilobytes")   
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000 + " Kilobytes"))
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Kilobytes"))
 
     } else if (folder_size_length <= 9) {
 
+        let round = folder_size / 1000000
         let x = console.log("converted size", folder_size / 1000000, "Megabytes")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000000 + " Megabytes"))
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Megabytes"))
 
     } else if (folder_size_length <= 12) {
         
+        let round = folder_size / 1000000000
         let x = console.log("converted size", folder_size / 1000000000, "Gigabytes")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size/  1000000000 + " Gigabytes"))
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Gigabytes"))
 
     } else if (folder_size_length <= 15) {
 
+        let round = folder_size / 1000000000000
         let x = console.log("converted size", folder_size / 1000000000000, 'Terabyte')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size / 1000000000000 + " Terabytes"))
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Terabytes"))
 
     } else if (folder_size_length <= 18) {
 
+        let round = folder_size / 1000000000000000
         let x = console.log("converted size", folder_size / 1000000000000000, 'Petabyte')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size/ 1000000000000000 + " Petabytes"))
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Petabytes"))
 
     }
 

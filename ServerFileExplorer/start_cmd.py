@@ -12,6 +12,7 @@ import datetime
     
 class CLI(cmd.Cmd): 
     intro = "HELLO! For help type `help` into the terminal for help. To return to the terminal when the server has stopped, hit `CTRL+C`."
+    print("Type 'start' to start the server")
     
     prompt = "File Explorer> "
 
