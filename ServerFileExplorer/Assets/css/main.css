@@ -1,7 +1,13 @@
+body {
+    background-color:white;
+}
+
 .centerBox {
     border: solid;
-    border-color: black;
+    border-color: 003135;
     border-width: 3px;
+
+    width: 400px;
     
     padding: 30px;
     float: right;
@@ -10,3 +16,5 @@
 li {
     list-style-type: none;
 }
+
+
