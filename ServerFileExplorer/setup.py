@@ -33,7 +33,7 @@ if folderSize == True:
 else:
     print("Creating foldersize.txt")
     with open('foldersize.txt', 'w') as outFile:
-        outFile.write('0')
+        outFile.write('')
 
 print("Completed!")
 input("Press Any Button To Exit: ")

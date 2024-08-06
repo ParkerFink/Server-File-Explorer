@@ -1,0 +1,12 @@
+.centerBox {
+    border: solid;
+    border-color: black;
+    border-width: 3px;
+    
+    padding: 30px;
+    float: right;
+}
+
+li {
+    list-style-type: none;
+}

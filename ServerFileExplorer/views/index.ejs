@@ -14,39 +14,43 @@
 
 
 
-    <div class="uploadArea">
+
         <form action="/" method="post" enctype="multipart/form-data">
 
             <input class="fileUpload" type="file" name="filename">
+            <br>
             <input type="submit" value="Upload File">
         
         </form>
-    </div>
+
  
     
 
 
 
 
-    <div class="filebox"></div>
+<div class="centerBox">
+
     <form action="/delete" method="post">
-        <input type="submit" class="deleteButton" value="Delete Selected">
-        <% for (file of files) { %>
-            <div class="checkbox">
-                
+    <input type="submit" class="deleteButton" value="Delete Selected">
+    <% for (file of files) { %>
+        
+            <li>
+                <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= file %>'>
+                <a href="<%= file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
+                <button class="openButton" onclick="window.open('<%= file %>')">Open</button>
+            </li>
 
-                    <input  type="checkbox" id="checkboxid" name= "file" value='<%= file %>'>
+        <br>
 
-                    <a href="<%= file %>" class="downloadItems"  id="fileDelete" download="<%= file %>" ><%= file %></a> 
+    <% } %>    
+</form>
 
-                    <button onclick="window.open('<%= file %>')">Open</button>
+</div>
 
-            <br>
-            
-            </div>
-        <% } %>    
-    </form>
-</div> 
+
+
+
 
 
 
