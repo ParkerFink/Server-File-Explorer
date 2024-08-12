@@ -1,6 +1,8 @@
 # Requirements
-At least python 3.10.12 <br>
-At least node 12.22.9
+
+## Windows: <br>
+  At least python 3.10.12.<br>
+  At least node 12.22.9
 
 # Setup
 Setup is really easy. Just double click on the setup.py file and it will automatically download and create everything needed
