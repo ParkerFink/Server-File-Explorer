@@ -5,10 +5,14 @@
   At least node v12.22.9. This can be downloaded at https://nodejs.org/en/download/prebuilt-installer <br>
 
 # Setup
-There are two main ways to setup the program.
-You can run start_cmd.py and type in 'setup'
-OR you can double click on setup.py
+There are two main ways to setup the program. <br>
+You can run start_cmd.py and type in 'setup' <br>
+OR you can double click on setup.py <br>
+Next you will want to edit your config file to have it run on the right URL: <br>
+In stat_cmd.py, type 'config ip *your ip*' to change the IP. 'config port *port*' changes the port. <br>  
+
+
 
 # Start
-To start the program, run the start.py.
-As of now there is no real GUI so you just have command line that displays information as it passes through the server. 
+To start the program, run start_cmd.py. This will open a terminal looking window, this is where you will type all your commands for the server. <br>
+Once start_cmd.py is open, type 'start' to run the server. As long as you have no error codes, your server is now running and fully functional. <br>
