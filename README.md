@@ -1,11 +1,13 @@
 # Requirements
 
 ## Windows: <br>
-  At least python v3.10.12 or whatever the most current version is. Python can be downloaded from the microsoft store<br>
-  At least node v12.22.9. This can be downloaded at https://nodejs.org/en/download/prebuilt-installer
+  At least python v3.10.12 or whatever the most current version is. Python can be downloaded from the microsoft store <br>
+  At least node v12.22.9. This can be downloaded at https://nodejs.org/en/download/prebuilt-installer <br>
 
 # Setup
-Setup is really easy. Just double click on the setup.py file and it will automatically download and create everything needed
+There are two main ways to setup the program.
+You can run start_cmd.py and type in 'setup'
+OR you can double click on setup.py
 
 # Start
 To start the program, run the start.py.
