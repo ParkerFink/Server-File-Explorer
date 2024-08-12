@@ -29,6 +29,8 @@ class CLI(cmd.Cmd):
         os.remove("Storage/" + dir)
         print('Removed: ', dir)
 
+    def do_setup(self, blank):
+        os.system('python3 setup.py || python setup.py')
 
     def do_exit(self, blank):
         exit()
