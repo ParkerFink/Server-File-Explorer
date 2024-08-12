@@ -1,5 +1,5 @@
 import os
-
+import platform
 
 
 
@@ -8,6 +8,9 @@ import os
 storageFolder = os.path.isdir('Storage/')
 logFolder = os.path.isdir("Logs/")
 folderSize = os.path.isfile('foldersize.txt')
+OS = platform.system()
+
+print(OS)
 
 os.system('npm i')
 
@@ -33,7 +36,9 @@ if folderSize == True:
 else:
     print("Creating foldersize.txt")
     with open('foldersize.txt', 'w') as outFile:
-        outFile.write('0')
+        outFile.write('')
 
+print("Completed!")
+input("Press Any Button To Exit: ")
 
 
