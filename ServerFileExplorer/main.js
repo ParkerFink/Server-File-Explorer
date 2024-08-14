@@ -139,20 +139,54 @@ app.post('/delete', function(req,res){
 
         if (deleteFile == undefined) {
             res.redirect('/')
-        } else {
+        } else {    
+
+            try {
+                    if (Array.isArray(deleteFile) == true){
+                        for (item of deleteFile) {
+                            fs.unlinkSync(storageFolder + item)
+                            console.log("Deleted: " + item)
+                        }
+                    } else {
+                        fs.unlinkSync(storageFolder + deleteFile)
+                        console.log("Deleted: " + deleteFile)
+                    }    
+            }
+
+            catch(err){
+                console.log(err)
+
+            } 
+
+            finally {
+
                 if (Array.isArray(deleteFile) == true){
                     for (item of deleteFile) {
-                        fs.unlinkSync(storageFolder + item)
+                        fs.rmdirSync(storageFolder + item)
                         console.log("Deleted: " + item)
                     }
                 } else {
-                    fs.unlinkSync(storageFolder + deleteFile)
+                    fs.rmdirSync(storageFolder + deleteFile)
                     console.log("Deleted: " + deleteFile)
-                }
-                
+                }   
+            }
+
             res.redirect('/')
         }
     })
+
+
+//creates a new directory
+app.post('/newDir', function(req,res){
+
+    newFolder = req.body.newDir
+    console.log(newFolder)
+
+    fs.mkdirSync(storageFolder + "/" + newFolder)
+
+    res.redirect('/')
+
+})
 
 
 
