@@ -3,8 +3,9 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const { config } = require("process")
 
+
+const { config } = require("process")
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -32,7 +33,7 @@ const uploadStorage = multer({storage: storage})
 
 
 
-//external function
+
 
 //convert function
 function sizeConvert(folder_size){
@@ -159,16 +160,10 @@ app.post('/delete', function(req,res){
             } 
 
             finally {
+            
+                fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
 
-                if (Array.isArray(deleteFile) == true){
-                    for (item of deleteFile) {
-                        fs.rmdirSync(storageFolder + item)
-                        console.log("Deleted: " + item)
-                    }
-                } else {
-                    fs.rmdirSync(storageFolder + deleteFile)
-                    console.log("Deleted: " + deleteFile)
-                }   
+
             }
 
             res.redirect('/')
