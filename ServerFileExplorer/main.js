@@ -3,8 +3,6 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-
-
 const { config } = require("process")
 
 //setup
@@ -91,9 +89,8 @@ function sizeConvert(folder_size){
 //home endpoint
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
-    
     let folderSize = null
-    
+
     for (file of filenames) {
         fs.stat(storageFolder + '/' + file, function(err, stats){
             if (err) {
