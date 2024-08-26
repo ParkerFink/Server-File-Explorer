@@ -4,7 +4,6 @@ const app = express()
 const fs = require('fs')
 const multer = require('multer')
 const { config } = require("process")
-const admz = require('adm-zip')
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -32,7 +31,7 @@ const uploadStorage = multer({storage: storage})
 
 
 
-//external function
+
 
 //convert function
 function sizeConvert(folder_size){
@@ -52,32 +51,32 @@ function sizeConvert(folder_size){
     } else if (folder_size_length <= 6){
 
         let round = folder_size / 1000
-        let x = console.log("converted size", folder_size / 1000, "Kilobytes")   
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Kilobytes"))
+        let x = console.log("converted size", folder_size / 1000, "kb")   
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " kb"))
 
     } else if (folder_size_length <= 9) {
 
         let round = folder_size / 1000000
-        let x = console.log("converted size", folder_size / 1000000, "Megabytes")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Megabytes"))
+        let x = console.log("converted size", folder_size / 1000000, "MB")
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " MB"))
 
     } else if (folder_size_length <= 12) {
         
         let round = folder_size / 1000000000
-        let x = console.log("converted size", folder_size / 1000000000, "Gigabytes")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Gigabytes"))
+        let x = console.log("converted size", folder_size / 1000000000, "GB")
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " GB"))
 
     } else if (folder_size_length <= 15) {
 
         let round = folder_size / 1000000000000
-        let x = console.log("converted size", folder_size / 1000000000000, 'Terabyte')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Terabytes"))
+        let x = console.log("converted size", folder_size / 1000000000000, 'TB')
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " TB"))
 
     } else if (folder_size_length <= 18) {
 
         let round = folder_size / 1000000000000000
-        let x = console.log("converted size", folder_size / 1000000000000000, 'Petabyte')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " Petabytes"))
+        let x = console.log("converted size", folder_size / 1000000000000000, 'PB')
+        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " PB"))
 
     }
 
@@ -90,9 +89,8 @@ function sizeConvert(folder_size){
 //home endpoint
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
-    
     let folderSize = null
-    
+
     for (file of filenames) {
         fs.stat(storageFolder + '/' + file, function(err, stats){
             if (err) {
@@ -139,20 +137,48 @@ app.post('/delete', function(req,res){
 
         if (deleteFile == undefined) {
             res.redirect('/')
-        } else {
-                if (Array.isArray(deleteFile) == true){
-                    for (item of deleteFile) {
-                        fs.unlinkSync(storageFolder + item)
-                        console.log("Deleted: " + item)
-                    }
-                } else {
-                    fs.unlinkSync(storageFolder + deleteFile)
-                    console.log("Deleted: " + deleteFile)
-                }
-                
+        } else {    
+
+            try {
+                    if (Array.isArray(deleteFile) == true){
+                        for (item of deleteFile) {
+                            fs.unlinkSync(storageFolder + item)
+                            console.log("Deleted: " + item)
+                        }
+                    } else {
+                        fs.unlinkSync(storageFolder + deleteFile)
+                        console.log("Deleted: " + deleteFile)
+                    }    
+            }
+
+            catch(err){
+                console.log(err)
+
+            } 
+
+            finally {
+            
+                fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
+
+
+            }
+
             res.redirect('/')
         }
     })
+
+
+//creates a new directory
+app.post('/newDir', function(req,res){
+
+    newFolder = req.body.newDir
+    console.log(newFolder)
+
+    fs.mkdirSync(storageFolder + "/" + newFolder)
+
+    res.redirect('/')
+
+})
 
 
 
