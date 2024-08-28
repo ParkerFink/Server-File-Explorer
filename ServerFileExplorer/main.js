@@ -78,7 +78,59 @@ function sizeConvert(folder_size){
         let x = console.log("converted size", folder_size / 1000000000000000, 'PB')
         fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " PB"))
 
+        
+
     }
+
+}
+
+function sizeConvert2(folder_size){
+
+    // let roundNum = folder_size.toFixed(2)
+    // console.log(roundNum,) 
+
+    folder_size_length = folder_size.toString().length
+    
+
+    if (folder_size_length <= 3){
+        
+        
+        console.log("converted size", folder_size, "Bytes")
+        var y = JSON.stringify(folder_size + " Bytes")
+        
+    } else if (folder_size_length <= 6){
+
+        let round = folder_size / 1000
+        let x = console.log("converted size", folder_size / 1000, "kb")   
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " kb")
+
+    } else if (folder_size_length <= 9) {
+
+        let round = folder_size / 1000000
+        let x = console.log("converted size", folder_size / 1000000, "MB")
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " MB")
+
+    } else if (folder_size_length <= 12) {
+        
+        let round = folder_size / 1000000000
+        let x = console.log("converted size", folder_size / 1000000000, "GB")
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " GB")
+
+    } else if (folder_size_length <= 15) {
+
+        let round = folder_size / 1000000000000
+        let x = console.log("converted size", folder_size / 1000000000000, 'TB')
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " TB")
+
+    } else if (folder_size_length <= 18) {
+
+        let round = folder_size / 1000000000000000
+        let x = console.log("converted size", folder_size / 1000000000000000, 'PB')
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " PB")
+
+    }
+
+    return y
 
 }
 
@@ -90,6 +142,12 @@ function sizeConvert(folder_size){
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
     let folderSize = null
+
+    if (configFile.folderCap == null) {
+        console.log("No File Cap")
+    } else {
+        convertedSize = sizeConvert2(configFile.folderCap)
+    }
 
     for (file of filenames) {
         fs.stat(storageFolder + '/' + file, function(err, stats){
@@ -118,7 +176,9 @@ app.get('/', function(req,res){
     files: filenames,
     tabName: configFile.tabName,
     folderSize: fs.readFileSync(readFolderSize),
-    version: configFile.version
+    version: configFile.version, 
+    folderCap: convertedSize,
+    percentUsed: fs.readFileSync(readFolderSize) / convertedSize
 
         })
     })
@@ -185,8 +245,9 @@ app.post('/newDir', function(req,res){
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
-    console.log(`Server Version ${configFile.version}`)
-    //console.log(`Server GUI ${configFile.ui_version}`)
+    console.log(`Server Version: ${configFile.version}`)
+    console.log(`Server Folder Cap: ${configFile.folderCap}`)
     console.log("Server: Running")
+    //console.log(`Server GUI ${configFile.ui_version}`)
 
 })
