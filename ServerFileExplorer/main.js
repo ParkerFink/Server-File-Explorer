@@ -5,6 +5,9 @@ const fs = require('fs')
 const multer = require('multer')
 const { config } = require("process")
 
+
+
+
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
@@ -36,9 +39,7 @@ const uploadStorage = multer({storage: storage})
 //convert function
 function sizeConvert(folder_size){
 
-    // let roundNum = folder_size.toFixed(2)
-    // console.log(roundNum,) 
-
+    
     folder_size_length = folder_size.toString().length
 
 
@@ -46,39 +47,42 @@ function sizeConvert(folder_size){
         
         
         console.log("converted size", folder_size, "Bytes")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(folder_size + " Bytes"))
+        var y = JSON.stringify(folder_size + " Bytes")
         
     } else if (folder_size_length <= 6){
 
         let round = folder_size / 1000
         let x = console.log("converted size", folder_size / 1000, "kb")   
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " kb"))
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " kb")
 
     } else if (folder_size_length <= 9) {
 
         let round = folder_size / 1000000
         let x = console.log("converted size", folder_size / 1000000, "MB")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " MB"))
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " MB")
 
     } else if (folder_size_length <= 12) {
         
         let round = folder_size / 1000000000
         let x = console.log("converted size", folder_size / 1000000000, "GB")
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " GB"))
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " GB")
 
     } else if (folder_size_length <= 15) {
 
         let round = folder_size / 1000000000000
         let x = console.log("converted size", folder_size / 1000000000000, 'TB')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " TB"))
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " TB")
 
     } else if (folder_size_length <= 18) {
 
         let round = folder_size / 1000000000000000
         let x = console.log("converted size", folder_size / 1000000000000000, 'PB')
-        fs.writeFileSync('foldersize.txt', JSON.stringify(Math.round(round * 100) / 100 + " PB"))
+        var y = JSON.stringify(Math.round(round * 100) / 100 + " PB")
+
 
     }
+
+    return y
 
 }
 
@@ -89,36 +93,41 @@ function sizeConvert(folder_size){
 //home endpoint
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
-    let folderSize = null
+    
 
-    for (file of filenames) {
-        fs.stat(storageFolder + '/' + file, function(err, stats){
-            if (err) {
+    if (configFile.folderCap == null) {
 
-                throw err
+        console.log("No File Cap")
 
-            } else {
+    } else {
 
-                console.log(stats.size)
-                folderSize = folderSize + stats.size
-                
-                sizeConvert(folderSize)
-
-                console.log("Total Size", folderSize)
-                
-                }
-            })
+    }   
+        let totalSize = 0
+        let fileSizes = []
+        for (file of filenames) {
+            let x = fs.statSync(storageFolder + file)
+            totalSize += x.size
+            //fileSizes.push(x.size)
+            //console.log(fileSizes)
         }
+        console.log(totalSize)
 
-    console.log(filenames)
+        
+    
+        //console.log(x.size)
 
-    readFolderSize = "./foldersize.txt"
+    
+
+    
+    
 
     res.render('index.ejs', {
     files: filenames,
     tabName: configFile.tabName,
-    folderSize: fs.readFileSync(readFolderSize),
-    version: configFile.version
+    folderSize: sizeConvert(totalSize),
+    version: configFile.version, 
+    folderCap: sizeConvert(configFile.folderCap),
+    percentUsed: ((totalSize / configFile.folderCap) * 100).toFixed(2)
 
         })
     })
@@ -185,8 +194,9 @@ app.post('/newDir', function(req,res){
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
-    console.log(`Server Version ${configFile.version}`)
-    //console.log(`Server GUI ${configFile.ui_version}`)
+    console.log(`Server Version: ${configFile.version}`)
+    console.log(`Server Folder Cap: ${configFile.folderCap}`)
     console.log("Server: Running")
+    
 
 })
