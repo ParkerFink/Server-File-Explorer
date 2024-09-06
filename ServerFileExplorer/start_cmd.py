@@ -3,11 +3,6 @@ import os
 import json
 import datetime
 
-#serverStart = datetime.datetime.now()
-#print(serverStart)
-#with open("Logs/" + str(serverStart) + ".txt", 'w') as outFile:
-    #outFile.write('Server Start \n')
-    #outFile.write(str(serverStart) + "\n")
 
     
 class CLI(cmd.Cmd): 
@@ -18,6 +13,7 @@ class CLI(cmd.Cmd):
 
         intro = "HELLO! For help type `help` into the terminal for help. To return to the terminal when the server has stopped, hit `CTRL+C`."
         print("Type 'start' to start the server")
+        print("Repo found at https://github.com/ParkerFink/Server-File-Explorer")
     
         prompt = "File Explorer " + "v" + file["version"]  +  "> " 
 
