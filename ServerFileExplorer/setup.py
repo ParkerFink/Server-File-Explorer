@@ -6,8 +6,7 @@ import platform
 
 
 storageFolder = os.path.isdir('Storage/')
-logFolder = os.path.isdir("Logs/")
-folderSize = os.path.isfile('foldersize.txt')
+#logFolder = os.path.isdir("Logs/")
 OS = platform.system()
 
 print(OS)
@@ -22,17 +21,7 @@ else:
     print('Creating Storage Folder')
     os.mkdir("Storage/")
 
-if folderSize == True:
-    print("foldersize.txt Already Exists")
-    pass
-else:
-    print("Creating foldersize.txt")
-    with open('foldersize.txt', 'w') as outFile:
-        outFile.write('')
-
-
-
 print("Completed!")
-input("Press Any Button To Exit: ")
+input("Press ENTER To Exit: ")
 
 
