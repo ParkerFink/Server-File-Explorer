@@ -223,21 +223,6 @@ app.post('/back', function(req,res){
     res.redirect('/')
 })
 
-
-//creates a new directory
-app.post('/newDir', function(req,res){
-
-    newFolder = req.body.newDir
-    console.log(newFolder)
-
-    fs.mkdirSync(storageFolder + newFolder)
-
-    res.redirect('/view')
-
-})
-
-
-
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
