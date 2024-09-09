@@ -94,7 +94,6 @@ function sizeConvert(folder_size){
 app.get('/', function(req,res){
     let filenames = fs.readdirSync(storageFolder)
     
-
     if (configFile.folderCap == null) {
 
         console.log("No File Cap")
@@ -112,14 +111,14 @@ app.get('/', function(req,res){
         }
         console.log(totalSize)
 
-        
-    
-        //console.log(x.size)
 
-    
-
-    
-    
+        let full = null
+        if (((totalSize / configFile.folderCap) * 100).toFixed(2) >= 10){
+            full = "Server is almost full!"
+            console.log("Server Is Getting Full!")
+        } else {
+            full = ""
+        }
 
     res.render('index.ejs', {
     files: filenames,
@@ -127,7 +126,8 @@ app.get('/', function(req,res){
     folderSize: sizeConvert(totalSize),
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
-    percentUsed: ((totalSize / configFile.folderCap) * 100).toFixed(2)
+    percentUsed: ((totalSize / configFile.folderCap) * 100).toFixed(2),
+    sizeErr: full
 
         })
     })
