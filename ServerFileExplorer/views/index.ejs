@@ -10,13 +10,15 @@
 <input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
     
-
+    <p><%= currentDir %></p>
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
     
     
-    
+    <form action="/back" method="post">
+        <button type="submit" >Home</button>
+    </form>
     
     
     
@@ -63,11 +65,6 @@
 
 
 
-<form action="/newDir" method="post">
-
-    <input name="newDir" placeholder="New Folder" text>
-
-</form>
 
 
 

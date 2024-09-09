@@ -5,9 +5,6 @@ const fs = require('fs')
 const multer = require('multer')
 
 
-
-
-
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
@@ -121,6 +118,7 @@ return {
 
 }
 
+
 //endpoints
 
 //home endpoint
@@ -136,10 +134,12 @@ app.get('/', function(req,res){
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    currentDir: temp.join("/"),
     err: onload.full
 
         })
     })
+
 
 
 
@@ -185,34 +185,43 @@ app.post('/delete', function(req,res){
         }
     })
 
-
+let temp = []
 
 //view folders 
-// app.get('/view', function(req,res){
-//     res.render('template.ejs')
-// })
 
 app.post('/view', function(req,res){
 
+
     let onload = onLoad()
     let folder = req.body.clickedFolder
-    console.log(folder)
 
-    let folderItems = fs.readdirSync(storageFolder + folder)
+    temp.push(folder)
+    console.log("Folder has ", temp)
+
+    console.log(storageFolder + temp.join(''))
+   
+    let folderItems = fs.readdirSync(storageFolder + temp.join('/'))
+
+  
     console.log(folderItems)
 
     res.render('index.ejs', {
     files: folderItems,
-    tabName: folder,
+    tabName: "tab",
     folderSize: sizeConvert(onload.totalSize),
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    currentDir: temp.join("/"),
     err: onload.full
 
         })
 })
 
+app.post('/back', function(req,res){
+    temp.length= 0
+    res.redirect('/')
+})
 
 
 //creates a new directory
@@ -221,9 +230,9 @@ app.post('/newDir', function(req,res){
     newFolder = req.body.newDir
     console.log(newFolder)
 
-    fs.mkdirSync(storageFolder + "/" + newFolder)
+    fs.mkdirSync(storageFolder + newFolder)
 
-    res.redirect('/')
+    res.redirect('/view')
 
 })
 
