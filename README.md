@@ -1,4 +1,5 @@
 # Requirements
+# Not required but helps with updates, download Github Desktop and clone the repo
 
 ## Windows: <br>
   At least python v3.10.12 or whatever the most current version is. Python can be downloaded from the microsoft store <br>
@@ -8,6 +9,8 @@
 ## Linux: <br>
   At least python v3.10.12 or whatever the most current version is. Python is typically preinstalled with Linux but if not you can download it through your package manager or download it from https://www.python.org/downloads/ <br>
   At least node v12.22.9. This can be downloaded at https://nodejs.org/en/download/prebuilt-installer <br>
+
+
   
 
 # Setup
