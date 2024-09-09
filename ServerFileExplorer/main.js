@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const { config } = require("process")
+
 
 
 
@@ -21,7 +21,7 @@ let configFile = JSON.parse(readFile)
 
 
 //multer storage folder setup
-const storageFolder = 'Storage/'
+const storageFolder = configFile.storage
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, storageFolder)
