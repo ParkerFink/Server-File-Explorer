@@ -88,41 +88,55 @@ function sizeConvert(folder_size){
 
 
 
+//temp
+function onLoad() {
+
+    let filenames = fs.readdirSync(storageFolder)
+
+    let totalSize = 0
+    for (file of filenames) {
+        let x = fs.statSync(storageFolder + file)
+        totalSize += x.size
+        
+    }
+    console.log(totalSize)
+    
+
+    //checks folder cap
+    let full = null
+    if (((totalSize / configFile.folderCap) * 100).toFixed(2) >= configFile.folderCap){
+        full = "Server is almost full!"
+        console.log("Server Is Getting Full!")
+    } else {
+        full = ""
+    }
+
+return {
+    filenames,
+    totalSize,
+    full
+
+}
+
+
+}
+
 //endpoints
 
 //home endpoint
 app.get('/', function(req,res){
-    let filenames = fs.readdirSync(storageFolder)
-
-        let totalSize = 0
-        for (file of filenames) {
-            let x = fs.statSync(storageFolder + file)
-            totalSize += x.size
-            
-        }
-        console.log(totalSize)
-
-
-
-        //checks folder cap
-        let full = null
-        if (((totalSize / configFile.folderCap) * 100).toFixed(2) >= configFile.folderCap){
-            full = "Server is almost full!"
-            console.log("Server Is Getting Full!")
-        } else {
-            full = ""
-        }
-
+    let onload = onLoad()
+    
 
     //renders the main page
     res.render('index.ejs', {
-    files: filenames,
+    files: onload.filenames,
     tabName: configFile.tabName,
-    folderSize: sizeConvert(totalSize),
+    folderSize: sizeConvert(onload.totalSize),
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
-    percentUsed: ((totalSize / configFile.folderCap) * 100).toFixed(2),
-    err: full
+    percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    err: onload.full
 
         })
     })
@@ -170,6 +184,35 @@ app.post('/delete', function(req,res){
             res.redirect('/')
         }
     })
+
+
+
+//view folders 
+// app.get('/view', function(req,res){
+//     res.render('template.ejs')
+// })
+
+app.post('/view', function(req,res){
+
+    let onload = onLoad()
+    let folder = req.body.clickedFolder
+    console.log(folder)
+
+    let folderItems = fs.readdirSync(storageFolder + folder)
+    console.log(folderItems)
+
+    res.render('index.ejs', {
+    files: folderItems,
+    tabName: folder,
+    folderSize: sizeConvert(onload.totalSize),
+    version: configFile.version, 
+    folderCap: sizeConvert(configFile.folderCap),
+    percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    err: onload.full
+
+        })
+})
+
 
 
 //creates a new directory
