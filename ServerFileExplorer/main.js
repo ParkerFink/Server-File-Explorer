@@ -3,10 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const { config } = require("process")
-
-
-
+const querystring = require('querystring')
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -21,10 +18,11 @@ let configFile = JSON.parse(readFile)
 
 
 //multer storage folder setup
-const storageFolder = 'Storage/'
+let temp = []
+const storageFolder = configFile.storage
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
-    cb(null, storageFolder)
+    cb(null, storageFolder + temp.join('/'))
 },
 filename: (req,file, cb) => {
     cb(null, file.originalname)
@@ -88,49 +86,65 @@ function sizeConvert(folder_size){
 
 
 
+//temp
+function onLoad() {
+
+    let filenames = fs.readdirSync(storageFolder + temp.join('/'))
+
+    let totalSize = 0
+    for (file of filenames) {
+        let x = fs.statSync(storageFolder + temp.join('/') + "/" + file)
+        totalSize += x.size
+        
+    }
+    console.log(totalSize)
+    
+
+    //checks folder cap
+    let full = null
+    if (((totalSize / configFile.folderCap) * 100).toFixed(2) >= configFile.folderCap){
+        full = "Server is almost full!"
+        console.log("Server Is Getting Full!")
+    } else {
+        full = ""
+    }
+
+return {
+    filenames,
+    totalSize,
+    full
+
+}
+
+
+}
+
+
 //endpoints
 
+
+
 //home endpoint
-app.get('/', function(req,res){
-    let filenames = fs.readdirSync(storageFolder)
-    
-
-    if (configFile.folderCap == null) {
-
-        console.log("No File Cap")
-
-    } else {
-
-    }   
-        let totalSize = 0
-        let fileSizes = []
-        for (file of filenames) {
-            let x = fs.statSync(storageFolder + file)
-            totalSize += x.size
-            //fileSizes.push(x.size)
-            //console.log(fileSizes)
-        }
-        console.log(totalSize)
-
-        
-    
-        //console.log(x.size)
-
-    
-
+app.get('/' + temp.join('/'), function(req,res){
+    let onload = onLoad()
+    console.log(temp.join('/'))
+    //temp.length = 0
     
     
-
+    //renders the main page
     res.render('index.ejs', {
-    files: filenames,
+    files: onload.filenames,
     tabName: configFile.tabName,
-    folderSize: sizeConvert(totalSize),
+    folderSize: sizeConvert(onload.totalSize),
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
-    percentUsed: ((totalSize / configFile.folderCap) * 100).toFixed(2)
+    percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    currentDir: storageFolder + temp.join("/"),
+    err: onload.full
 
         })
     })
+
 
 
 
@@ -155,12 +169,13 @@ app.post('/delete', function(req,res){
                             console.log("Deleted: " + item)
                         }
                     } else {
-                        fs.unlinkSync(storageFolder + deleteFile)
+                        fs.unlinkSync(temp.join('/') + deleteFile)
                         console.log("Deleted: " + deleteFile)
                     }    
             }
 
             catch(err){
+
                 console.log(err)
 
             } 
@@ -169,7 +184,6 @@ app.post('/delete', function(req,res){
             
                 fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
 
-
             }
 
             res.redirect('/')
@@ -177,26 +191,44 @@ app.post('/delete', function(req,res){
     })
 
 
-//creates a new directory
-app.post('/newDir', function(req,res){
+//view folders 
 
-    newFolder = req.body.newDir
-    console.log(newFolder)
+app.post('/view', function(req,res){
 
-    fs.mkdirSync(storageFolder + "/" + newFolder)
 
+    //let onload = onLoad()
+    let folder = req.body.clickedFolder
+    temp.push(folder)
+    
     res.redirect('/')
-
+    
 })
 
+app.post('/back', function(req,res){
+    temp.length= 0
+    res.redirect('/')
+})
 
+app.post('/newFolder', function(req,res){
+
+    let x = req.body.newFolder
+    console.log("Created ", x)
+
+    fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
+ 
+    temp.length = 0
+    res.redirect('/')
+    
+
+})
 
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
     console.log(`Server Version: ${configFile.version}`)
     console.log(`Server Folder Cap: ${configFile.folderCap}`)
+    console.log(`Repo at https://github.com/ParkerFink/Server-File-Explorer`)
     console.log("Server: Running")
     
-
+   
 })

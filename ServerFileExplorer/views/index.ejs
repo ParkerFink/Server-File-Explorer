@@ -4,18 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
-    <title> <%= tabName %> v<%= version %> </title>
+    <title> <%= tabName %> </title>
 </head>
 <body>
+<input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
-
+    
+    <p><%= currentDir %></p>
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
+    <p><%= err %></p>
     
-
-
-
-
+    
+    <form action="/back" method="post">
+        <button type="submit" >Home</button>
+    </form>
+    
+    
+    
         <form action="/" method="post" enctype="multipart/form-data">
 
             <input class="fileUpload" type="file" name="filename">
@@ -26,11 +32,10 @@
 
  
     
-<input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
 
 
-<div class="centerBox">
+
 
     <form action="/delete" method="post">
     <input type="submit" class="deleteButton" value="Delete Selected">
@@ -39,7 +44,9 @@
             <li>
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= file %>'>
                 <a href="<%= file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button class="openButton" onclick="window.open('<%= file %>')">Open</button>
+                <button class="openButton" onclick="window.open('<%= file %>')">View</button>
+                
+
             </li>
 
         <br>
@@ -47,22 +54,25 @@
     <% } %>    
 </form>
 
-</div>
+<form action="/view" method="post">
+    <% for (file of files) { %>
 
+        <button name="clickedFolder" value="<%= file %>" type="submit">Open</button>
 
-
-<form action="/newDir" method="post">
-
-    <input name="newDir" placeholder="New Folder" text>
-
+    <% } %>
 </form>
 
 
 
+<form action="/newFolder" method="post">
+    <input name="newFolder" type="text" placeholder="New Folder">
+</form>
 
 
+<script>
+
+   
 
 
-
-</body>
+</script>
 </html>
