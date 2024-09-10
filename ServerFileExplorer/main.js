@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const prompt = require("prompt-sync")({signit: true})
+const querystring = require('querystring')
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -18,10 +18,11 @@ let configFile = JSON.parse(readFile)
 
 
 //multer storage folder setup
+let temp = []
 const storageFolder = configFile.storage
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
-    cb(null, storageFolder)
+    cb(null, storageFolder + temp.join('/'))
 },
 filename: (req,file, cb) => {
     cb(null, file.originalname)
@@ -88,11 +89,11 @@ function sizeConvert(folder_size){
 //temp
 function onLoad() {
 
-    let filenames = fs.readdirSync(storageFolder)
+    let filenames = fs.readdirSync(storageFolder + temp.join('/'))
 
     let totalSize = 0
     for (file of filenames) {
-        let x = fs.statSync(storageFolder + file)
+        let x = fs.statSync(storageFolder + temp.join('/') + "/" + file)
         totalSize += x.size
         
     }
@@ -121,12 +122,15 @@ return {
 
 //endpoints
 
-//home endpoint
-app.get('/', function(req,res){
-    let onload = onLoad()
-    
-    
 
+
+//home endpoint
+app.get('/' + temp.join('/'), function(req,res){
+    let onload = onLoad()
+    console.log(temp.join('/'))
+    //temp.length = 0
+    
+    
     //renders the main page
     res.render('index.ejs', {
     files: onload.filenames,
@@ -135,7 +139,7 @@ app.get('/', function(req,res){
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    currentDir: temp.join("/"),
+    currentDir: storageFolder + temp.join("/"),
     err: onload.full
 
         })
@@ -165,7 +169,7 @@ app.post('/delete', function(req,res){
                             console.log("Deleted: " + item)
                         }
                     } else {
-                        fs.unlinkSync(storageFolder + deleteFile)
+                        fs.unlinkSync(temp.join('/') + deleteFile)
                         console.log("Deleted: " + deleteFile)
                     }    
             }
@@ -186,37 +190,18 @@ app.post('/delete', function(req,res){
         }
     })
 
-let temp = []
 
 //view folders 
 
 app.post('/view', function(req,res){
 
 
-    let onload = onLoad()
+    //let onload = onLoad()
     let folder = req.body.clickedFolder
-
     temp.push(folder)
-    console.log("Folder has ", temp)
-
-    console.log(storageFolder + temp.join(''))
-   
-    let folderItems = fs.readdirSync(storageFolder + temp.join('/'))
-
-  
-    console.log(folderItems)
-
-    res.render('index.ejs', {
-    files: folderItems,
-    tabName: "tab",
-    folderSize: sizeConvert(onload.totalSize),
-    version: configFile.version, 
-    folderCap: sizeConvert(configFile.folderCap),
-    percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    currentDir: temp.join("/"),
-    err: onload.full
-
-        })
+    
+    res.redirect('/')
+    
 })
 
 app.post('/back', function(req,res){
