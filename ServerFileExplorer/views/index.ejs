@@ -10,7 +10,7 @@
 <input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
     
-    <p><%= currentDir %></p>
+    <p>Storage/<%= currentDir %></p>
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
@@ -64,9 +64,15 @@
 
 
 
+<form action="/newFolder" method="post">
+    <input name="newFolder" type="text" placeholder="New Folder">
+</form>
 
 
+<script>
+
+   
 
 
-
+</script>
 </html>

@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-
+const prompt = require("prompt-sync")({signit: true})
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -125,6 +125,7 @@ return {
 app.get('/', function(req,res){
     let onload = onLoad()
     
+    
 
     //renders the main page
     res.render('index.ejs', {
@@ -223,6 +224,19 @@ app.post('/back', function(req,res){
     res.redirect('/')
 })
 
+app.post('/newFolder', function(req,res){
+
+    let x = req.body.newFolder
+    console.log("Created ", x)
+
+    fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
+ 
+    temp.length = 0
+    res.redirect('/')
+    
+
+})
+
 //listen server
 app.listen(configFile.port, configFile.port, function(){
     console.log(`Server: ${configFile.ip}:${configFile.port}`)
@@ -231,5 +245,5 @@ app.listen(configFile.port, configFile.port, function(){
     console.log(`Repo at https://github.com/ParkerFink/Server-File-Explorer`)
     console.log("Server: Running")
     
-
+   
 })
