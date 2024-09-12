@@ -139,7 +139,7 @@ app.get('/' + temp.join('/'), function(req,res){
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    currentDir: storageFolder + temp.join("/"),
+    currentDir: temp.join("/") + "/",
     err: onload.full
 
         })
