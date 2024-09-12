@@ -42,9 +42,9 @@
     <% for (file of files) { %>
         
             <li>
-                <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= file %>'>
-                <a href="<%= file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button class="openButton" onclick="window.open('<%= file %>')">View</button>
+                <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
+                <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
+                <button class="openButton" onclick="window.open('<%= currentDir + file %>')">View</button>
                 
 
             </li>

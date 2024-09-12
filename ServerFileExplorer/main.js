@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
-const querystring = require('querystring')
+
 
 //setup
 app.use(express.urlencoded({extended: true}))
@@ -139,7 +139,7 @@ app.get('/' + temp.join('/'), function(req,res){
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    currentDir: storageFolder + temp.join("/"),
+    currentDir: temp.join("/") + "/",
     err: onload.full
 
         })
