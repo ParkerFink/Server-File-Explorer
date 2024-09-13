@@ -57,7 +57,7 @@
 <form action="/view" method="post">
     <% for (file of files) { %>
 
-        <button name="clickedFolder" value="<%= file %>" type="submit">Open</button>
+        <button id="viewButton" name="clickedFolder" value="<%= file %>" type="submit">Open</button>
 
     <% } %>
 </form>

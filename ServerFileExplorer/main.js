@@ -216,7 +216,8 @@ app.post('/newFolder', function(req,res){
 
     fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
  
-    temp.length = 0
+    temp.push(x)
+    
     res.redirect('/')
     
 

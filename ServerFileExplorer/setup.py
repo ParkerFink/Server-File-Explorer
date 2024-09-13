@@ -6,7 +6,6 @@ import platform
 
 
 storageFolder = os.path.isdir('Storage/')
-#logFolder = os.path.isdir("Logs/")
 OS = platform.system()
 
 print(OS)
