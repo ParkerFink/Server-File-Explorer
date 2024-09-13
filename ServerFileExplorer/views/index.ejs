@@ -10,7 +10,14 @@
 <input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
     
-    <p><%= currentDir %></p>
+    <form action="/nvgBack" method="post">
+        <% for (folder of path) { %>
+
+            <button name="folder" value="<%= folder %>" type="submit"><%= folder %></button>
+    
+        <% } %>
+    </form>
+    
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
