@@ -44,7 +44,6 @@
             <li>
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
                 <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button class="openButton" onclick="window.open('<%= currentDir + file %>')">View</button>
                 <button id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
 
 
@@ -55,9 +54,7 @@
     <% } %>    
 </form>
 
-<form action="/view" id="viewForm" method="post">
-   
-</form>
+<form action="/view" id="viewForm" method="post"></form>
 
 
 

@@ -195,12 +195,40 @@ app.post('/delete', function(req,res){
 
 app.post('/view', function(req,res){
 
-
-    //let onload = onLoad()
     let folder = req.body.clickedFolder
-    temp.push(folder)
+    let dir = storageFolder + temp.join('/') + folder
     
-    res.redirect('/')
+    let stats = fs.statSync(dir)
+    
+    if (stats.isDirectory() == true) {
+        console.log("Is Directory")
+        temp.push(folder)
+        res.redirect('/')
+    } else if (stats.isFile() == true) {
+        console.log("Is File")
+        temp.push(folder)
+        res.redirect('/' + folder)
+        temp.length = 0
+    }
+
+
+    
+
+
+
+    // try {
+    //     let folder = req.body.clickedFolder
+    //     temp.push(folder)
+    //     res.redirect('/')
+    // } catch(err){
+    //     console.log(err)
+    //     temp.length = 0
+    //     res.redirect('/')
+    // } finally {
+        
+    //     res.redirect('/')
+    // }
+    
     
 })
 
