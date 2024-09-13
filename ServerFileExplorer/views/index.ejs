@@ -10,7 +10,14 @@
 <input type="button" hidden value="HAHA Button" onclick="alert('HAHA Get Pranked :3')">
 
     
-    <p><%= currentDir %></p>
+    <form action="/nvgBack" method="post">
+        <% for (folder of path) { %>
+
+            <button name="folder" value="<%= folder %>" type="submit"><%= folder %></button>
+    
+        <% } %>
+    </form>
+    
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
@@ -44,8 +51,8 @@
             <li>
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
                 <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button class="openButton" onclick="window.open('<%= currentDir + file %>')">View</button>
-                
+                <button id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
+
 
             </li>
 
@@ -54,13 +61,7 @@
     <% } %>    
 </form>
 
-<form action="/view" method="post">
-    <% for (file of files) { %>
-
-        <button name="clickedFolder" value="<%= file %>" type="submit">Open</button>
-
-    <% } %>
-</form>
+<form action="/view" id="viewForm" method="post"></form>
 
 
 

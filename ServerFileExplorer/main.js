@@ -139,6 +139,7 @@ app.get('/' + temp.join('/'), function(req,res){
     version: configFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
+    path: temp, 
     currentDir: temp.join("/") + "/",
     err: onload.full
 
@@ -153,6 +154,16 @@ app.post('/', uploadStorage.single("filename"), function(req,res){
     res.redirect('/')
 })
 
+app.post('/nvgBack', function(req,res){
+    let folder = req.body.folder
+    console.log("Clicked ", folder)
+
+    let x = temp.indexOf(folder)    
+    temp.length = x + 1
+
+    res.redirect('/')
+
+})
 
 //delete endpoint
 app.post('/delete', function(req,res){
@@ -195,12 +206,43 @@ app.post('/delete', function(req,res){
 
 app.post('/view', function(req,res){
 
-
-    //let onload = onLoad()
     let folder = req.body.clickedFolder
-    temp.push(folder)
+    let dir = storageFolder + temp.join('/') + folder
     
-    res.redirect('/')
+    let stats = fs.statSync(dir)
+    
+    //is a folder
+    if (stats.isDirectory() == true) {
+        console.log("Is Directory")
+        temp.push(folder + '/')
+        res.redirect('/')
+        
+    //is a file
+    } else if (stats.isFile() == true) {
+        console.log("Is File")
+        //temp.push(folder)
+        res.redirect('/' + temp.join('/') + folder)
+        temp.length = 0
+    }
+
+
+    
+
+
+
+    // try {
+    //     let folder = req.body.clickedFolder
+    //     temp.push(folder)
+    //     res.redirect('/')
+    // } catch(err){
+    //     console.log(err)
+    //     temp.length = 0
+    //     res.redirect('/')
+    // } finally {
+        
+    //     res.redirect('/')
+    // }
+    
     
 })
 
@@ -216,7 +258,8 @@ app.post('/newFolder', function(req,res){
 
     fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
  
-    temp.length = 0
+    temp.push(x)
+    
     res.redirect('/')
     
 
