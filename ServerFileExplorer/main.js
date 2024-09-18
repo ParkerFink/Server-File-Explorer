@@ -15,7 +15,8 @@ app.use(express.static('Assets'))
 let readFile = fs.readFileSync('config.json')
 let configFile = JSON.parse(readFile)
 
-
+let info = fs.readFileSync('info.json')
+let infoFile = JSON.parse(info)
 
 //multer storage folder setup
 let temp = []
@@ -136,7 +137,7 @@ app.get('/' + temp.join('/'), function(req,res){
     files: onload.filenames,
     tabName: configFile.tabName,
     folderSize: sizeConvert(onload.totalSize),
-    version: configFile.version, 
+    version: infoFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
     path: temp, 
@@ -164,6 +165,12 @@ app.post('/nvgBack', function(req,res){
     res.redirect('/')
 
 })
+
+app.get('/miniWindow', function(req,res){
+    res.render('miniWindow.ejs')
+})
+
+
 
 //delete endpoint
 app.post('/delete', function(req,res){
@@ -224,26 +231,7 @@ app.post('/view', function(req,res){
         res.redirect('/' + temp.join('/') + folder)
         temp.length = 0
     }
-
-
-    
-
-
-
-    // try {
-    //     let folder = req.body.clickedFolder
-    //     temp.push(folder)
-    //     res.redirect('/')
-    // } catch(err){
-    //     console.log(err)
-    //     temp.length = 0
-    //     res.redirect('/')
-    // } finally {
-        
-    //     res.redirect('/')
-    // }
-    
-    
+   
 })
 
 app.post('/back', function(req,res){

@@ -7,7 +7,7 @@ import datetime
     
 class CLI(cmd.Cmd): 
 
-    with open('config.json', 'r') as inFile:
+    with open('info.json', 'r') as inFile:
         file = json.load(inFile)
 
 
