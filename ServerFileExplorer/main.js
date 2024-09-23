@@ -90,13 +90,18 @@ function sizeConvert(folder_size){
 //temp
 function onLoad() {
 
+    let size = []
     let filenames = fs.readdirSync(storageFolder + temp.join('/'))
-
+    
+    
     let totalSize = 0
     for (file of filenames) {
         let x = fs.statSync(storageFolder + temp.join('/') + "/" + file)
-        totalSize += x.size
         
+        size.push(sizeConvert(x.size))
+        
+        console.log(size)
+
     }
     console.log(totalSize)
     
@@ -110,14 +115,14 @@ function onLoad() {
         full = ""
     }
 
+//return list
 return {
     filenames,
     totalSize,
-    full
+    full,
+    size
 
-}
-
-
+    }
 }
 
 
@@ -140,7 +145,8 @@ app.get('/', function(req,res){
     version: infoFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    path: temp, 
+    path: temp,
+    size: onload.size, 
     currentDir: temp.join("/") + "/",
     err: onload.full
 
