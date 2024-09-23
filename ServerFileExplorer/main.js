@@ -126,7 +126,7 @@ return {
 
 
 //home endpoint
-app.get('/' + temp.join('/'), function(req,res){
+app.get('/', function(req,res){
     let onload = onLoad()
     console.log(temp.join('/'))
     //temp.length = 0
@@ -165,11 +165,6 @@ app.post('/nvgBack', function(req,res){
     res.redirect('/')
 
 })
-
-app.get('/miniWindow', function(req,res){
-    res.render('miniWindow.ejs')
-})
-
 
 
 //delete endpoint
@@ -229,7 +224,7 @@ app.post('/view', function(req,res){
         console.log("Is File")
         //temp.push(folder)
         res.redirect('/' + temp.join('/') + folder)
-        temp.length = 0
+        
     }
    
 })
