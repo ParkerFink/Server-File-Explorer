@@ -20,8 +20,6 @@ let infoFile = JSON.parse(info)
 
 //multer storage folder setup
 let temp = []
-var isFolder = null    
-
 const storageFolder = configFile.storage
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
@@ -128,7 +126,7 @@ return {
 
 
 //home endpoint
-app.get('/' , function(req,res){
+app.get('/', function(req,res){
     let onload = onLoad()
     console.log(temp.join('/'))
     //temp.length = 0
@@ -144,7 +142,6 @@ app.get('/' , function(req,res){
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
     path: temp, 
     currentDir: temp.join("/") + "/",
-    isFolder: isFolder,
     err: onload.full
 
         })
@@ -213,24 +210,20 @@ app.post('/view', function(req,res){
 
     let folder = req.body.clickedFolder
     let dir = storageFolder + temp.join('/') + folder
+    
     let stats = fs.statSync(dir)
-
+    
     //is a folder
     if (stats.isDirectory() == true) {
         console.log("Is Directory")
         temp.push(folder + '/')
-        isFolder = "true"
         res.redirect('/')
-
         
     //is a file
     } else if (stats.isFile() == true) {
         console.log("Is File")
-        console.log(folder)
         //temp.push(folder)
-        isFolder = "false"
-        res.redirect('/' + temp.join('/'))
-        
+        res.redirect('/' + temp.join('/') + folder)
         
     }
    

@@ -12,7 +12,7 @@
     
     <form action="/nvgBack" method="post">
 
-        <button form="back" type="submit" >Home/ </button>
+        <button form="back" type="submit" >Home</button>
 
         <% for (folder of path) { %>
 
@@ -21,24 +21,15 @@
         <% } %>
     </form>
     
-
-
-
-
-
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
     
     
-    <form id="back" action="/back" method="post"></form>
+    <form id="back" action="/back" method="post">
+    </form>
     
     
-
-
-
-
-
     
         <form action="/" method="post" enctype="multipart/form-data">
 
@@ -62,7 +53,7 @@
             <li>
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
                 <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a> 
-                <button id="viewButton" onclick="check()" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
+                <button id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
                 <button>...</button>
 
             </li>
@@ -78,6 +69,7 @@
 
     
 
+</iframe>
 
 <form action="/newFolder" method="post">
     <input name="newFolder" type="text" placeholder="New Folder">
@@ -85,21 +77,4 @@
 
 
 
-<script>
-
-    
-
-    function check() {
-        // if (isFolder = "true") {
-        //     console.log("Is a folder ")}
-        if (isFolder = "false") {
-            console.log("Is a file")
-            window.open("<%= currentDir + file %>")
-        }
-        
-    }
-
-
-
-</script>
 </html>
