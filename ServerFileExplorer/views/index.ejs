@@ -11,6 +11,9 @@
 
     
     <form action="/nvgBack" method="post">
+
+        <button form="back" type="submit" >Home/ </button>
+
         <% for (folder of path) { %>
 
             <button name="folder" value="<%= folder %>" type="submit"><%= folder %></button>
@@ -28,9 +31,7 @@
     <p><%= err %></p>
     
     
-    <form action="/back" method="post">
-        <button type="submit" >Home</button>
-    </form>
+    <form id="back" action="/back" method="post"></form>
     
     
 
@@ -84,5 +85,21 @@
 
 
 
+<script>
 
+    
+
+    function check() {
+        // if (isFolder = "true") {
+        //     console.log("Is a folder ")}
+        if (isFolder = "false") {
+            console.log("Is a file")
+            window.open("<%= currentDir + file %>")
+        }
+        
+    }
+
+
+
+</script>
 </html>
