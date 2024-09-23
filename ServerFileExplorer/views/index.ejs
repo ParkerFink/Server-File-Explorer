@@ -11,6 +11,9 @@
 
     
     <form action="/nvgBack" method="post">
+
+        <button form="back" type="submit" >Home</button>
+
         <% for (folder of path) { %>
 
             <button name="folder" value="<%= folder %>" type="submit"><%= folder %></button>
@@ -23,8 +26,7 @@
     <p><%= err %></p>
     
     
-    <form action="/back" method="post">
-        <button type="submit" >Home</button>
+    <form id="back" action="/back" method="post">
     </form>
     
     
