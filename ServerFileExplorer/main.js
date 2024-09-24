@@ -3,6 +3,7 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
+const path = require("path")
 
 
 //setup
@@ -85,16 +86,35 @@ function sizeConvert(folder_size){
 
 }
 
+function loopFolder() {
+    let folder = fs.readdirSync(storageFolder)
+    
+    console.log("looping through", folder)
+
+    for (item of folder) {
+        let dir = fs.statSync(storageFolder + item)
+        if (dir.isDirectory() == true) {
+            console.log(item, "is dir")
+        }
+        
+        
+    }
 
 
-//temp
+}
+
+
+
+
+
+// runs when main page is loaded
 function onLoad() {
 
     let size = []
     let filenames = fs.readdirSync(storageFolder + temp.join('/'))
     
     
-    let totalSize = 0
+    
     for (file of filenames) {
         let x = fs.statSync(storageFolder + temp.join('/') + "/" + file)
         
@@ -103,7 +123,12 @@ function onLoad() {
         console.log(size)
 
     }
-    console.log(totalSize)
+
+        
+
+    loopFolder()
+
+    let totalSize = 0
     
 
     //checks folder cap
@@ -112,15 +137,16 @@ function onLoad() {
         full = "Server is almost full!"
         console.log("Server Is Getting Full!")
     } else {
-        full = ""
+        
+        //full = ""
     }
 
 //return list
 return {
     filenames,
-    totalSize,
     full,
-    size
+    size,
+    totalSize
 
     }
 }
