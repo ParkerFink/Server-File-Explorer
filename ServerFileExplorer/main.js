@@ -141,7 +141,8 @@ function onLoad() {
 
     //let dirSize = getFolderSize.loose(storageFolder)
 
-        let totalSize = 0
+    
+    let totalSize = 0
     
 
     //checks folder cap
@@ -240,7 +241,8 @@ app.post('/delete', function(req,res){
 
             finally {
             
-                fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
+                //fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
+                fs.rmSync(storageFolder + deleteFile, {recursive: true})
 
             }
 
