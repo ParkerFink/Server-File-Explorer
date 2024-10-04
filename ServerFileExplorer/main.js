@@ -6,6 +6,7 @@ const multer = require('multer')
 const path = require("path")
 
 
+
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
@@ -86,23 +87,33 @@ function sizeConvert(folder_size){
 
 }
 
-function loopFolder() {
-    let folder = fs.readdirSync(storageFolder)
-    
+function loopFolder(path) {
+    let folder = fs.readdirSync(path)
+    size = 0
+
+
     console.log("looping through", folder)
 
     for (item of folder) {
-        let dir = fs.statSync(storageFolder + item)
+        let dir = fs.statSync(path + item)
         if (dir.isDirectory() == true) {
             console.log(item, "is dir")
+            
+            let x = fs.readdirSync(path + item)
+            for (file of x) {
+                console.log(file)
+                size = size + dir.size
+            }
+            console.log(size)
+            
         }
-        
-        
     }
 
 
 }
 
+// let x = fs.readdirSync(path + item)
+// console.log("files of", x)
 
 
 
@@ -126,9 +137,11 @@ function onLoad() {
 
         
 
-    loopFolder()
+    //loopFolder(storageFolder)
 
-    let totalSize = 0
+    //let dirSize = getFolderSize.loose(storageFolder)
+
+        let totalSize = 0
     
 
     //checks folder cap
