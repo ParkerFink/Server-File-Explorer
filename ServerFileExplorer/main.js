@@ -3,6 +3,8 @@ const express = require("express")
 const app = express()
 const fs = require('fs')
 const multer = require('multer')
+const path = require("path")
+
 
 
 //setup
@@ -15,7 +17,8 @@ app.use(express.static('Assets'))
 let readFile = fs.readFileSync('config.json')
 let configFile = JSON.parse(readFile)
 
-
+let info = fs.readFileSync('info.json')
+let infoFile = JSON.parse(info)
 
 //multer storage folder setup
 let temp = []
@@ -84,20 +87,62 @@ function sizeConvert(folder_size){
 
 }
 
+function loopFolder(path) {
+    let folder = fs.readdirSync(path)
+    size = 0
 
 
-//temp
+    console.log("looping through", folder)
+
+    for (item of folder) {
+        let dir = fs.statSync(path + item)
+        if (dir.isDirectory() == true) {
+            console.log(item, "is dir")
+            
+            let x = fs.readdirSync(path + item)
+            for (file of x) {
+                console.log(file)
+                size = size + dir.size
+            }
+            console.log(size)
+            
+        }
+    }
+
+
+}
+
+// let x = fs.readdirSync(path + item)
+// console.log("files of", x)
+
+
+
+
+// runs when main page is loaded
 function onLoad() {
 
+    let size = []
     let filenames = fs.readdirSync(storageFolder + temp.join('/'))
-
-    let totalSize = 0
+    
+    
+    
     for (file of filenames) {
         let x = fs.statSync(storageFolder + temp.join('/') + "/" + file)
-        totalSize += x.size
         
+        size.push(sizeConvert(x.size))
+        
+        console.log(size)
+
     }
-    console.log(totalSize)
+
+        
+
+    //loopFolder(storageFolder)
+
+    //let dirSize = getFolderSize.loose(storageFolder)
+
+    
+    let totalSize = 0
     
 
     //checks folder cap
@@ -106,17 +151,18 @@ function onLoad() {
         full = "Server is almost full!"
         console.log("Server Is Getting Full!")
     } else {
-        full = ""
+        
+        //full = ""
     }
 
+//return list
 return {
     filenames,
-    totalSize,
-    full
+    full,
+    size,
+    totalSize
 
-}
-
-
+    }
 }
 
 
@@ -125,7 +171,7 @@ return {
 
 
 //home endpoint
-app.get('/' + temp.join('/'), function(req,res){
+app.get('/', function(req,res){
     let onload = onLoad()
     console.log(temp.join('/'))
     //temp.length = 0
@@ -136,10 +182,11 @@ app.get('/' + temp.join('/'), function(req,res){
     files: onload.filenames,
     tabName: configFile.tabName,
     folderSize: sizeConvert(onload.totalSize),
-    version: configFile.version, 
+    version: infoFile.version, 
     folderCap: sizeConvert(configFile.folderCap),
     percentUsed: ((onload.totalSize / configFile.folderCap) * 100).toFixed(2),
-    path: temp, 
+    path: temp,
+    size: onload.size, 
     currentDir: temp.join("/") + "/",
     err: onload.full
 
@@ -164,6 +211,7 @@ app.post('/nvgBack', function(req,res){
     res.redirect('/')
 
 })
+
 
 //delete endpoint
 app.post('/delete', function(req,res){
@@ -193,7 +241,8 @@ app.post('/delete', function(req,res){
 
             finally {
             
-                fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
+                //fs.rmdirSync(storageFolder + deleteFile, {recursive: true})
+                fs.rmSync(storageFolder + deleteFile, {recursive: true})
 
             }
 
@@ -222,28 +271,9 @@ app.post('/view', function(req,res){
         console.log("Is File")
         //temp.push(folder)
         res.redirect('/' + temp.join('/') + folder)
-        temp.length = 0
-    }
-
-
-    
-
-
-
-    // try {
-    //     let folder = req.body.clickedFolder
-    //     temp.push(folder)
-    //     res.redirect('/')
-    // } catch(err){
-    //     console.log(err)
-    //     temp.length = 0
-    //     res.redirect('/')
-    // } finally {
         
-    //     res.redirect('/')
-    // }
-    
-    
+    }
+   
 })
 
 app.post('/back', function(req,res){
