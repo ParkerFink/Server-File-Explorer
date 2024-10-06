@@ -1,0 +1,35 @@
+body 
+{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #42f5c5, #42c5f5, #4254f5, #9342f5, #f542f5);
+
+}
+
+.actionButton {
+    width: 75px;
+    height: 30px;
+    border: none;
+    
+    padding: 5px;
+    margin: 0px;
+
+    float: right;
+}
+
+.files {
+    width: 1000px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+}
+
+
+.pathButton {
+    width: 75px;
+    height: 30px;
+    border: none;
+
+    padding: 0px;
+    margin: 0px;
+    
+}

@@ -12,27 +12,29 @@
     
     <form action="/nvgBack" method="post">
 
-        <button form="back" type="submit" >Home</button>
+        <button class="pathButton" form="back" type="submit" >Home</button>
 
         <% for (folder of path) { %>
 
-            <button name="folder" value="<%= folder %>" type="submit"><%= folder %></button>
-    
+            <button class="pathButton" name="folder" value="<%= folder %>" type="submit" > <%= folder %> </button>
+      
         <% } %>
     </form>
     
+
+
+
+
+
     <p><%= folderSize %> /  <%= folderCap %> </p>
     <p>Used: <%= percentUsed %>%</p>
     <p><%= err %></p>
     
-    
-    <form id="back" action="/back" method="post">
 
-    </form>
     
     
     
-        <form action="/" method="post" enctype="multipart/form-data">
+    <form action="/" method="post" enctype="multipart/form-data">
 
             <input class="fileUpload" type="file" name="filename">
             <br>
@@ -51,14 +53,20 @@
     <input type="submit" class="deleteButton" value="Delete Selected">
     <% for (file of files) { %>
         
+        <div class="files">
+
             <li>
+                
+
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
                 <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a>
                 <p style="display: inline;"> <%= size[files.indexOf(file)] %> </p>
-                <button id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
-                <button>...</button>
+                <button class="actionButton" id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
+                <button class="actionButton">...</button>    
 
             </li>
+        
+        </div>
 
         <br>
         
@@ -67,17 +75,22 @@
     
 </form>
 
+
+
+<form id="back" action="/back" method="post"></form>
 <form action="/view" id="viewForm" method="post"></form>
 
 
 
     
 
-
-
+<!--
 <form action="/newFolder" method="post">
     <input name="newFolder" type="text" placeholder="New Folder">
 </form>
+
+-->
+
 
 
 
