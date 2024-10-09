@@ -33,3 +33,42 @@ body
     margin: 0px;
     
 }
+
+.checkbox {
+     width: 25px;
+    height: 25px;
+
+    padding: 0px;
+    margin: 10px;
+
+}
+
+.fileSubmit {
+    width: 75px;
+    height: 30px;
+    border: none;
+
+    padding: 0px;
+    margin: 10px;
+}
+
+
+input[type="file"]::file-selector-button {
+    width: 75px;
+    height: 30px;
+    border: none;
+
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.deleteButton {
+    width: 115px;
+    height: 30px;
+    border: none;
+
+    padding: 0px;
+    margin: 0px;
+}
+
