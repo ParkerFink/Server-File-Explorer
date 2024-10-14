@@ -7,6 +7,11 @@ const path = require("path")
 
 
 
+
+
+
+
+
 //setup
 app.use(express.urlencoded({extended: true}))
 app.set('view engine', 'ejs')
@@ -32,6 +37,12 @@ filename: (req,file, cb) => {
 },
 })
 const uploadStorage = multer({storage: storage})
+
+
+
+
+
+
 
 
 
@@ -87,6 +98,12 @@ function sizeConvert(folder_size){
 
 }
 
+
+
+
+
+
+
 function loopFolder(path) {
     let folder = fs.readdirSync(path)
     size = 0
@@ -135,6 +152,8 @@ function onLoad() {
 
     }
 
+
+    
         
 
     //loopFolder(storageFolder)
@@ -164,6 +183,14 @@ return {
 
     }
 }
+
+
+
+
+
+
+
+
 
 
 //endpoints
@@ -294,6 +321,12 @@ app.post('/newFolder', function(req,res){
     
 
 })
+
+
+
+
+
+
 
 //listen server
 app.listen(configFile.port, configFile.port, function(){
