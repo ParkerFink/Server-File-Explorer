@@ -50,14 +50,16 @@
     
 
 
-
-
+    
 
     <form action="/delete" method="post">
     <input class="deleteButton" type="submit" class="deleteButton" value="Delete Selected">
-
+    <button type="button" class="pathButton" onclick="newFolder()">+</button>
+    
     <% for (file of files) { %>
-        
+    
+
+
         <div class="files">
 
             <li>
@@ -66,8 +68,12 @@
                 <input  type="checkbox" class="checkbox" id="checkboxid" name= "file" value='<%= currentDir + file %>'>
                 <a href="<%= currentDir + file %>" class="fileDeleteDisplay" id="fileDelete" download="<%= file %>" ><%= file %></a>
                 <p style="display: inline;"> <%= size[files.indexOf(file)] %> </p>
-                <button class="actionButton" id="viewButton" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
-                <button class="actionButton">...</button>    
+                
+                <button style="display: none" class="actionButton action<%= file %>" id="action <%= file %>" name="clickedFolder" value="<%= file %>" form="viewForm" type="submit">Open</button>
+                <button style="display: none" class="actionButton action<%= file %>" id="action <%= file %>">R WIP</button>
+                <button style="display: none" class="actionButton action<%= file %>" id="action <%= file %>">D WIP</button>
+
+                <button type="button" class="actionButton" id="" onclick="toggleHide('action<%= file %>')">...</button>
 
             </li>
         
@@ -82,6 +88,7 @@
 
 
 
+<form action="/newFolder" method="post" id="folderForm" > <input style="display: none;" type="text" id="test" name="newFolder" value="fldr"> </form>
 <form id="back" action="/back" method="post"></form>
 <form action="/view" id="viewForm" method="post"></form>
 
@@ -89,14 +96,41 @@
 
     
 
-<!--
-<form action="/newFolder" method="post">
-    <input name="newFolder" type="text" placeholder="New Folder">
-</form>
-
--->
 
 
 
+
+
+<script>
+
+    function toggleHide(button) {
+        var x = document.getElementsByClassName(button)
+        console.log(x)
+
+        for (button of x){
+            if (button.style.display === 'none') {
+            button.style.display = 'block'
+            console.log("Showing Button")
+        } else {
+            button.style.display = 'none'
+            console.log("Removing Button")
+        }
+        }
+
+        
+    }
+
+    function newFolder() {
+        
+        var fldr = prompt('New Folder')
+        console.log(fldr)
+
+        submittedFolder = document.getElementById("test").value = fldr
+
+        document.getElementById('folderForm').submit()
+
+    }
+
+</script>
 
 </html>
