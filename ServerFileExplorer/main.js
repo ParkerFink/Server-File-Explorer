@@ -174,6 +174,8 @@ function onLoad() {
         //full = ""
     }
 
+
+    
 //return list
 return {
     filenames,
@@ -194,6 +196,10 @@ return {
 
 
 //endpoints
+
+
+
+
 
 
 
@@ -223,10 +229,21 @@ app.get('/', function(req,res){
 
 
 
+
+
+
+
+
 //home post endpoint
 app.post('/', uploadStorage.single("filename"), function(req,res){
     res.redirect('/')
 })
+
+
+
+
+
+
 
 app.post('/nvgBack', function(req,res){
     let folder = req.body.folder
@@ -238,6 +255,11 @@ app.post('/nvgBack', function(req,res){
     res.redirect('/')
 
 })
+
+
+
+
+
 
 
 //delete endpoint
@@ -278,6 +300,9 @@ app.post('/delete', function(req,res){
     })
 
 
+
+
+
 //view folders 
 
 app.post('/view', function(req,res){
@@ -303,21 +328,37 @@ app.post('/view', function(req,res){
    
 })
 
+
+
+
+
 app.post('/back', function(req,res){
     temp.length= 0
     res.redirect('/')
 })
 
+
+
+
+
 app.post('/newFolder', function(req,res){
 
     let x = req.body.newFolder
-    console.log("Created ", x)
 
-    fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
- 
-    temp.push(x)
+    if (x == "") {
+
+        res.redirect('/')
+
+    } else {
+
+        console.log("Created ", x)
+
+        fs.mkdirSync(storageFolder + temp.join('/') + "/" + x)
     
-    res.redirect('/')
+        temp.push(x)
+        
+        res.redirect('/')
+    }
     
 
 })
